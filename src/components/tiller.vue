@@ -5,7 +5,6 @@
         <div
             class="k-item-cardlet">
             <div
-                v-if="status"
                 class="k-item-handle">
                 <vue-nestable-handle
                     v-bind:item="item">
@@ -23,20 +22,20 @@
                 class="k-item-content">
                 <div
                     class="k-content-display"
-                    v-on:click="drawer_edit">
+                    v-on:click="action_edit">
                     <k-item-image
                         v-if="item.image"
                         width="38px"
-        				v-bind:image="{
+                        v-bind:image="{
                             ...item.image,
                             cover: true,
                             ratio: '2/2'
                         }">
-        			</k-item-image>
+                    </k-item-image>
                 </div>
                 <div
                     class="k-content-meta"
-                    v-on:click="drawer_edit">
+                    v-on:click="action_edit">
                     <div
                         class="k-meta-title">
                         {{ item.title }}
@@ -50,17 +49,16 @@
                 <div
                     class="k-content-action">
                     <k-dropdown
-                        v-if="status"
                         class="k-item-menu">
                         <k-button
                             icon="dots"
-                            v-on:click="dialog_tiller">
+                            v-on:click="action_tiller">
                         </k-button>
                         <k-dropdown-content
                             ref="dialog_tiller"
                             align="right">
                             <k-dropdown-item
-                                v-on:click="dialog_pages(item)">
+                                v-on:click="action_pages(item)">
                                 <div
                                     class="k-menu-title">
                                     <k-icon
@@ -77,7 +75,7 @@
                                 </p>
                             </k-dropdown-item>
                             <k-dropdown-item
-                                v-on:click="dialog_files">
+                                v-on:click="action_files(item)">
                                 <div
                                     class="k-menu-title">
                                     <k-icon
@@ -94,7 +92,7 @@
                                 </p>
                             </k-dropdown-item>
                             <k-dropdown-item
-                                v-on:click="dialog_pages">
+                                v-on:click="action_pages(item)">
                                 <div
                                     class="k-menu-title">
                                     <k-icon
@@ -116,7 +114,7 @@
                                 </div>
                             </k-dropdown-item>
                             <k-dropdown-item
-                                v-on:click="drawer_edit">
+                                v-on:click="action_edit">
                                 <div
                                     class="k-menu-title">
                                     <k-icon
@@ -133,7 +131,7 @@
                                 </p>
                             </k-dropdown-item>
                             <k-dropdown-item
-                                v-on:click="dialog_remove">
+                                v-on:click="action_dialog">
                                 <div
                                     class="k-menu-title k-menu-negative">
                                     <k-icon
@@ -154,23 +152,23 @@
                 </div>
             </div>
         </div>
-        <k-pages-dialog
-            ref="dialog_pages"
-            v-on:submit="action_kirby">
-        </k-pages-dialog>
-    	<k-files-dialog
-            ref="dialog_files"
-            v-on:submit="action_kirby">
-        </k-files-dialog>
         <k-drawer
             icon="bolt"
             ref="drawer_edit"
             v-bind:title="'Edit ' + item.title">
             <k-form 
                 v-model="item.fields" 
-                v-bind:fields="fieldsets">
+                v-bind:fields="{ ...this.fieldsets }">
             </k-form>
         </k-drawer>
+        <k-pages-dialog
+            ref="dialog_pages"
+            v-on:submit="action_kirby">
+        </k-pages-dialog>
+        <k-files-dialog
+            ref="dialog_files"
+            v-on:submit="action_kirby">
+        </k-files-dialog>
         <k-dialog
             icon="trash"
             theme="negative"
@@ -181,9 +179,9 @@
                 Do you really want to remove <strong>{{ item.title }}</strong>?
                 <div 
                     v-if="item.children.length">
-                    It has the following menu items directly underneath:
+                    It has the following child menu items: <br /><br />
                     <span
-                        v-for="(children, index) in item.children">
+                        v-for="(children, index) in action_flattened(item.children)">
                         {{ children.title }}<br />
                     </span>
                 </div>
@@ -196,7 +194,7 @@
 <script>
 
     export default {
-        name: 'tiller-item',
+        name: 'tiller',
         props: {
             list: {
                 type: Array,
@@ -210,21 +208,13 @@
                 type: Number,
                 required: true
             },
-            status: {
-                type: Boolean,
-                required: true
-            },
-            search: {
-                type: Object,
-                required: true
-            },
             fields: {
                 type: Object,
                 required: true
             },
             fieldsets: {
                 type: Object,
-                required: true
+                required: false
             },
             pages: {
                 type: Object,
@@ -240,28 +230,27 @@
             },
         },
         methods: {
-            drawer_edit() {
+            action_edit() {
                 this.$refs.drawer_edit.open()
             },
-            dialog_tiller() {
+            action_tiller() {
                 this.$refs.dialog_tiller.open()
             },
-            dialog_remove(data) {
+            action_dialog(data) {
                 this.$refs.dialog_remove.open()
             },
-            dialog_close() {
+            action_close() {
                 this.$refs.dialog_remove.close()
             },
-            dialog_pages(data) {
+            action_pages(data) {
                 this.$refs.dialog_pages.open({
-                    item: data,
                     multiple: true,
                     search: this.pages.search,
                     endpoint: this.endpoints.field + '/pages',
-    				selected: this.pages.selected.map((model) => model.id)
-    			})
+                    selected: this.pages.selected.map((model) => model.id)
+                })
             },
-            dialog_files() {
+            action_files() {
                 this.$refs.dialog_files.open({
                     multiple: true,
                     search: this.files.search,
@@ -278,7 +267,7 @@
                         title: item.text,
                         url: item.url,
                         image: item.image,
-                        fields: this.fields,
+                        fields: this.fieldsets,
                         children: [],
                     })
                 })
@@ -288,9 +277,18 @@
                     haystack: this.list,
                     needle: this.item.id
                 })
-                this.dialog_close()
+                this.action_close()
+            },
+            action_flattened(data) {
+                let children = []
+                return data.map(page => {
+                    if (page.children && page.children.length) {
+                        children.push([...children, ...page.children])
+                    }
+                    return page
+                }).concat(children.length ? this.action_flattened(children) : children)
             }
-        }
+        },
     }
 
 </script>
@@ -417,3 +415,5 @@
     }
 
 </style>
+
+

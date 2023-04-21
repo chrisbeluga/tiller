@@ -6,22 +6,20 @@
         v-bind:value="value"
         v-bind:disabled="disabled"
         v-bind:required="required"
-        class="k-form-field k-tiller-field"
-        v-bind:class="return_status ? 'tiller-unlocked' : 'tiller-locked'">
-		<template
-            v-slot:options
-            v-if="return_status">
+        class="k-form-field k-tiller-field">
+        <template
+            v-slot:options>
             <k-dropdown
                 class="k-tiller-menu">
                 <k-button
                     icon="dots"
-                    v-on:click="dialog_tiller">
+                    v-on:click="action_tiller">
                 </k-button>
                 <k-dropdown-content
                     ref="dialog_tiller"
                     align="right">
                     <k-dropdown-item
-                        v-on:click="dialog_pages">
+                        v-on:click="action_pages">
                         <div
                             class="k-menu-title">
                             <k-icon
@@ -38,7 +36,7 @@
                         </p>
                     </k-dropdown-item>
                     <k-dropdown-item
-                        v-on:click="dialog_files">
+                        v-on:click="action_files">
                         <div
                             class="k-menu-title">
                             <k-icon
@@ -55,7 +53,7 @@
                         </p>
                     </k-dropdown-item>
                     <k-dropdown-item
-                        v-on:click="dialog_custom">
+                        v-on:click="action_custom">
                         <div
                             class="k-menu-title">
                             <k-icon
@@ -73,47 +71,29 @@
                     </k-dropdown-item>
                 </k-dropdown-content>
             </k-dropdown>
-		</template>
-        <template
-            v-else
-            v-slot:options>
-            <div
-                class="k-field-status">
-                <k-icon
-                    type="lock"
-                    class="k-field-status-icon">
-                </k-icon>
-                <k-text
-                    theme="help"
-                    class="k-field-status-text">
-                    This field is locked for your user role
-                </k-text>
-            </div>
         </template>
         <vue-nestable
-            cross-list
             keyProp="id"
-            v-model="return_list"
+            v-model="list"
             childrenProp="children">
             <k-empty
                 icon="bolt"
                 slot="placeholder"
-                v-on:click="dialog_tiller">
+                v-on:click="action_tiller">
                 No menu items
             </k-empty>
             <template
-                slot-scope="{ item, index }"
-                v-bind:item="item">
-                <tiller-item
+                slot-scope="{ item, index }">
+                <tiller
                     v-bind:item="item"
+                    v-bind:list="list"
+                    v-bind:key="index"
                     v-bind:index="index"
                     v-bind:pages="pages"
                     v-bind:files="files"
-                    v-bind:search="search"
-                    v-bind:list="return_list"
+                    v-bind:fields="fields"
                     v-bind:fieldsets="fieldsets"
                     v-bind:endpoints="endpoints"
-                    v-bind:status="return_status"
                     v-on:action_remove="action_remove">
                     <template
                         v-slot:handle>
@@ -128,29 +108,14 @@
                             </svg>
                         </vue-nestable-handle>
                     </template>
-                </tiller-item>
+                </tiller>
             </template>
         </vue-nestable>
-        <template
-            v-slot:help
-            v-if="return_help">
-            <k-grid
-                v-if="return_status">
-                <k-column
-                    width="1/2">
-                    <k-text
-                        theme="help"
-                        class="k-field-help"
-                        v-html="help">
-                    </k-text>
-                </k-column>
-            </k-grid>
-        </template>
         <k-pages-dialog
             ref="dialog_pages"
             v-on:submit="action_kirby">
         </k-pages-dialog>
-    	<k-files-dialog
+        <k-files-dialog
             ref="dialog_files"
             v-on:submit="action_kirby">
         </k-files-dialog>
@@ -160,30 +125,17 @@
 
 <script>
 
-    import tillerItem from './components/tiller-item.vue'
+    import tiller from './components/tiller.vue'
 
     export default {
         props: {
-            help: {
-                type: String,
-                required: false,
-            },
             value: {
                 type: Array,
-                required: true,
+                required: true
             },
             label: {
                 type: String,
                 required: true,
-            },
-            roles: {
-                type: Object,
-                required: false,
-            },
-            levels: {
-                type: Number,
-                required: false,
-                default: 6,
             },
             disabled: {
                 type: Boolean,
@@ -215,46 +167,42 @@
             }
         },
         components: {
-            tillerItem,
+            tiller
         },
         data() {
             return {
-                list: this.value || [],
+                list: this.value
             }
         },
         watch: {
-            return_list: {
-                handler() {
-                    this.$emit(
-                        'input',
-                        this.return_list
-                    )
+            list: {
+                handler(newVal, oldVal) {
+                    this.value = this.list
+                    this.$emit('input', this.value)
                 },
-                deep: true,
-                immediate: true,
+                deep: true
             }
         },
         methods: {
-            dialog_tiller() {
+            action_tiller() {
                 this.$refs.dialog_tiller.open({
                     state: true
                 })
             },
-            dialog_custom() {
+            action_custom() {
                 this.$refs.dialog_custom.open({
                     state: true
                 })
             },
-            dialog_pages(data) {
+            action_pages() {
                 this.$refs.dialog_pages.open({
-                    item: data,
                     multiple: true,
                     search: this.pages.search,
                     endpoint: this.endpoints.field + '/pages',
-    				selected: this.pages.selected.map((model) => model.id)
-    			})
+                    selected: this.pages.selected.map((model) => model.id)
+                })
             },
-            dialog_files() {
+            action_files() {
                 this.$refs.dialog_files.open({
                     multiple: true,
                     search: this.files.search,
@@ -264,7 +212,7 @@
             },
             action_kirby(data) {
                 data.map((item) => {
-                    this.return_list.push({
+                    this.list.push({
                         id: this.$helper.string.random(16),
                         uuid: item.uuid,
                         link: item.link,
@@ -277,7 +225,7 @@
                 })
             },
             action_remove(data) {
-                return this.return_list = data.haystack.filter(item => item.id !== data.needle).map(item => {
+               return this.list = data.haystack.filter(item => item.id !== data.needle).map(item => {
                     if (item.children && item.children.length) {
                         item.children = this.action_remove({
                             haystack: item.children,
@@ -286,26 +234,6 @@
                     }
                     return item
                 })
-            }
-        },
-        computed: {
-            return_list: {
-                get() {
-                    return this.list
-                },
-                set(data) {
-                    this.list = data
-                }
-            },
-            return_help() {
-                return this.help 
-                && this.help.length > 0
-            },
-            return_status() {
-                if(!this.roles) return true
-                return Object.keys(this.roles).filter(item => {
-                    return this.roles[item]
-                }).includes(this.$user.role)
             }
         }
     }
@@ -341,7 +269,7 @@
                     color: #fff;
                     width: 100%;
                     display: flex;
-                    margin-bottom: 8px;
+                    margin-bottom: 4px;
                     .k-menu-icon {
                         width: 14px;
                         height: 14px;

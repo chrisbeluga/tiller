@@ -1,7 +1,6 @@
 <?php
 
 	return function ($data) {
-        return $this->saveMethod($data,
-            option('beluga.tiller.whitelist')
-        );
+        //$this->validateMethod($data);
+        return $this->saveMethod($data);
     };

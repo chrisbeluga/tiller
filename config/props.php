@@ -1,36 +1,24 @@
 <?php
 
 	return [
-        'fieldsets' => function () {
-            return $this->formMethod()->fields()->toArray();
+        'fields' => function() {
+            return $this->fields;
         },
-        'fields' => function () {
-            return $this->formMethod()->values();
+        'fieldsets' => function() {
+            return $this->fieldsets;
         },
-        'levels' => function ($value = 10) {
-            return $value;
-        },
-        'value' => function($value = false) {
-            return $this->valueMethod(Yaml::decode($value));
-        },
-        'pages' => function ($value = []) {
+        'pages' => function($data = []) {
             return array_merge([
                 'query' => 'site.pages',
                 'search' => true,
                 'selected' => []
-            ], $value);
+            ], $data);
         },
-        'files' => function ($value = []) {
+        'files' => function($data = []) {
             return array_merge([
                 'query' => 'site.files.add(site.index.files)',
                 'search' => true,
                 'selected' => []
-            ], $value);
+            ], $data);
         },
-        'whitelist' => function() {
-            return [
-                ...option('beluga.tiller.whitelist'),
-                ...array_keys($this->formMethod()->fields()->toArray())
-            ];
-        }
 	];

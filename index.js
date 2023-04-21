@@ -1,6 +1,1660 @@
-!function(){"use strict";function t(t,e,n,i,r,s,o,a,l,u){"boolean"!=typeof o&&(l=a,a=o,o=!1);const c="function"==typeof n?n.options:n;let d;if(t&&t.render&&(c.render=t.render,c.staticRenderFns=t.staticRenderFns,c._compiled=!0,r&&(c.functional=!0)),i&&(c._scopeId=i),s?(d=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),e&&e.call(this,l(t)),t&&t._registeredComponents&&t._registeredComponents.add(s)},c._ssrRegister=d):e&&(d=o?function(t){e.call(this,u(t,this.$root.$options.shadowRoot))}:function(t){e.call(this,a(t))}),d)if(c.functional){const t=c.render;c.render=function(e,n){return d.call(n),t(e,n)}}else{const t=c.beforeCreate;c.beforeCreate=t?[].concat(t,d):[d]}return n}function e(t){return t&&t.__esModule&&Object.prototype.hasOwnProperty.call(t,"default")?t.default:t}var n={exports:{}};!function(t,e){function n(t){return"object"!=typeof t||"toString"in t?t:Object.prototype.toString.call(t).slice(8,-1)}Object.defineProperty(e,"__esModule",{value:!0});var i="object"==typeof process&&!0;function r(t,e){if(!t){if(i)throw new Error("Invariant failed");throw new Error(e())}}e.invariant=r;var s=Object.prototype.hasOwnProperty,o=Array.prototype.splice,a=Object.prototype.toString;function l(t){return a.call(t).slice(8,-1)}var u=Object.assign||function(t,e){return c(e).forEach((function(n){s.call(e,n)&&(t[n]=e[n])})),t},c="function"==typeof Object.getOwnPropertySymbols?function(t){return Object.keys(t).concat(Object.getOwnPropertySymbols(t))}:function(t){return Object.keys(t)};function d(t){return Array.isArray(t)?u(t.constructor(t.length),t):"Map"===l(t)?new Map(t):"Set"===l(t)?new Set(t):t&&"object"==typeof t?u(Object.create(Object.getPrototypeOf(t)),t):t}var h=function(){function t(){this.commands=u({},p),this.update=this.update.bind(this),this.update.extend=this.extend=this.extend.bind(this),this.update.isEquals=function(t,e){return t===e},this.update.newContext=function(){return(new t).update}}return Object.defineProperty(t.prototype,"isEquals",{get:function(){return this.update.isEquals},set:function(t){this.update.isEquals=t},enumerable:!0,configurable:!0}),t.prototype.extend=function(t,e){this.commands[t]=e},t.prototype.update=function(t,e){var n=this,i="function"==typeof e?{$apply:e}:e;Array.isArray(t)&&Array.isArray(i)||r(!Array.isArray(i),(function(){return"update(): You provided an invalid spec to update(). The spec may not contain an array except as the value of $set, $push, $unshift, $splice or any custom command allowing an array value."})),r("object"==typeof i&&null!==i,(function(){return"update(): You provided an invalid spec to update(). The spec and every included key path must be plain objects containing one of the following commands: "+Object.keys(n.commands).join(", ")+"."}));var o=t;return c(i).forEach((function(e){if(s.call(n.commands,e)){var r=t===o;o=n.commands[e](i[e],o,i,t),r&&n.isEquals(o,t)&&(o=t)}else{var a="Map"===l(t)?n.update(t.get(e),i[e]):n.update(t[e],i[e]),u="Map"===l(o)?o.get(e):o[e];n.isEquals(a,u)&&(void 0!==a||s.call(t,e))||(o===t&&(o=d(t)),"Map"===l(o)?o.set(e,a):o[e]=a)}})),o},t}();e.Context=h;var p={$push:function(t,e,n){return m(e,n,"$push"),t.length?e.concat(t):e},$unshift:function(t,e,n){return m(e,n,"$unshift"),t.length?t.concat(e):e},$splice:function(t,e,i,s){return function(t,e){r(Array.isArray(t),(function(){return"Expected $splice target to be an array; got "+n(t)})),g(e.$splice)}(e,i),t.forEach((function(t){g(t),e===s&&t.length&&(e=d(s)),o.apply(e,t)})),e},$set:function(t,e,n){return function(t){r(1===Object.keys(t).length,(function(){return"Cannot have more than one key in an object with $set"}))}(n),t},$toggle:function(t,e){y(t,"$toggle");var n=t.length?d(e):e;return t.forEach((function(t){n[t]=!e[t]})),n},$unset:function(t,e,n,i){return y(t,"$unset"),t.forEach((function(t){Object.hasOwnProperty.call(e,t)&&(e===i&&(e=d(i)),delete e[t])})),e},$add:function(t,e,n,i){return v(e,"$add"),y(t,"$add"),"Map"===l(e)?t.forEach((function(t){var n=t[0],r=t[1];e===i&&e.get(n)!==r&&(e=d(i)),e.set(n,r)})):t.forEach((function(t){e!==i||e.has(t)||(e=d(i)),e.add(t)})),e},$remove:function(t,e,n,i){return v(e,"$remove"),y(t,"$remove"),t.forEach((function(t){e===i&&e.has(t)&&(e=d(i)),e.delete(t)})),e},$merge:function(t,e,i,s){var o,a;return o=e,r((a=t)&&"object"==typeof a,(function(){return"update(): $merge expects a spec of type 'object'; got "+n(a)})),r(o&&"object"==typeof o,(function(){return"update(): $merge expects a target of type 'object'; got "+n(o)})),c(t).forEach((function(n){t[n]!==e[n]&&(e===s&&(e=d(s)),e[n]=t[n])})),e},$apply:function(t,e){var i;return r("function"==typeof(i=t),(function(){return"update(): expected spec of $apply to be a function; got "+n(i)+"."})),t(e)}},f=new h;function m(t,e,i){r(Array.isArray(t),(function(){return"update(): expected target of "+n(i)+" to be an array; got "+n(t)+"."})),y(e[i],i)}function y(t,e){r(Array.isArray(t),(function(){return"update(): expected spec of "+n(e)+" to be an array; got "+n(t)+". Did you forget to wrap your parameter in an array?"}))}function g(t){r(Array.isArray(t),(function(){return"update(): expected spec of $splice to be an array of arrays; got "+n(t)+". Did you forget to wrap your parameters in an array?"}))}function v(t,e){var i=l(t);r("Map"===i||"Set"===i,(function(){return"update(): "+n(e)+" expects a target of type Set or Map; got "+n(i)}))}e.isEquals=f.update.isEquals,e.extend=f.extend,e.default=f.update,e.default.default=t.exports=u(e.default,e)}(n,n.exports);var i=e(n.exports);
-/*!
+(function() {
+  "use strict";
+  function normalizeComponent$1(template, style, script2, scopeId, isFunctionalTemplate, moduleIdentifier, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== "boolean") {
+      createInjectorSSR = createInjector;
+      createInjector = shadowMode;
+      shadowMode = false;
+    }
+    const options = typeof script2 === "function" ? script2.options : script2;
+    if (template && template.render) {
+      options.render = template.render;
+      options.staticRenderFns = template.staticRenderFns;
+      options._compiled = true;
+      if (isFunctionalTemplate) {
+        options.functional = true;
+      }
+    }
+    if (scopeId) {
+      options._scopeId = scopeId;
+    }
+    let hook;
+    if (moduleIdentifier) {
+      hook = function(context) {
+        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
+          context = __VUE_SSR_CONTEXT__;
+        }
+        if (style) {
+          style.call(this, createInjectorSSR(context));
+        }
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      };
+      options._ssrRegister = hook;
+    } else if (style) {
+      hook = shadowMode ? function(context) {
+        style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+      } : function(context) {
+        style.call(this, createInjector(context));
+      };
+    }
+    if (hook) {
+      if (options.functional) {
+        const originalRender = options.render;
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        const existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+    return script2;
+  }
+  function getDefaultExportFromCjs(x) {
+    return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
+  }
+  var immutabilityHelper = { exports: {} };
+  (function(module, exports) {
+    Object.defineProperty(exports, "__esModule", { value: true });
+    function stringifiable(obj) {
+      return typeof obj === "object" && !("toString" in obj) ? Object.prototype.toString.call(obj).slice(8, -1) : obj;
+    }
+    var isProduction = typeof process === "object" && false;
+    function invariant(condition, message) {
+      if (!condition) {
+        if (isProduction) {
+          throw new Error("Invariant failed");
+        }
+        throw new Error(message());
+      }
+    }
+    exports.invariant = invariant;
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    var splice = Array.prototype.splice;
+    var toString = Object.prototype.toString;
+    function type(obj) {
+      return toString.call(obj).slice(8, -1);
+    }
+    var assign = Object.assign || function(target, source) {
+      getAllKeys(source).forEach(function(key) {
+        if (hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      });
+      return target;
+    };
+    var getAllKeys = typeof Object.getOwnPropertySymbols === "function" ? function(obj) {
+      return Object.keys(obj).concat(Object.getOwnPropertySymbols(obj));
+    } : function(obj) {
+      return Object.keys(obj);
+    };
+    function copy(object) {
+      return Array.isArray(object) ? assign(object.constructor(object.length), object) : type(object) === "Map" ? new Map(object) : type(object) === "Set" ? new Set(object) : object && typeof object === "object" ? assign(Object.create(Object.getPrototypeOf(object)), object) : object;
+    }
+    var Context = function() {
+      function Context2() {
+        this.commands = assign({}, defaultCommands);
+        this.update = this.update.bind(this);
+        this.update.extend = this.extend = this.extend.bind(this);
+        this.update.isEquals = function(x, y) {
+          return x === y;
+        };
+        this.update.newContext = function() {
+          return new Context2().update;
+        };
+      }
+      Object.defineProperty(Context2.prototype, "isEquals", {
+        get: function() {
+          return this.update.isEquals;
+        },
+        set: function(value) {
+          this.update.isEquals = value;
+        },
+        enumerable: true,
+        configurable: true
+      });
+      Context2.prototype.extend = function(directive, fn) {
+        this.commands[directive] = fn;
+      };
+      Context2.prototype.update = function(object, $spec) {
+        var _this = this;
+        var spec = typeof $spec === "function" ? { $apply: $spec } : $spec;
+        if (!(Array.isArray(object) && Array.isArray(spec))) {
+          invariant(!Array.isArray(spec), function() {
+            return "update(): You provided an invalid spec to update(). The spec may not contain an array except as the value of $set, $push, $unshift, $splice or any custom command allowing an array value.";
+          });
+        }
+        invariant(typeof spec === "object" && spec !== null, function() {
+          return "update(): You provided an invalid spec to update(). The spec and every included key path must be plain objects containing one of the " + ("following commands: " + Object.keys(_this.commands).join(", ") + ".");
+        });
+        var nextObject = object;
+        getAllKeys(spec).forEach(function(key) {
+          if (hasOwnProperty.call(_this.commands, key)) {
+            var objectWasNextObject = object === nextObject;
+            nextObject = _this.commands[key](spec[key], nextObject, spec, object);
+            if (objectWasNextObject && _this.isEquals(nextObject, object)) {
+              nextObject = object;
+            }
+          } else {
+            var nextValueForKey = type(object) === "Map" ? _this.update(object.get(key), spec[key]) : _this.update(object[key], spec[key]);
+            var nextObjectValue = type(nextObject) === "Map" ? nextObject.get(key) : nextObject[key];
+            if (!_this.isEquals(nextValueForKey, nextObjectValue) || typeof nextValueForKey === "undefined" && !hasOwnProperty.call(object, key)) {
+              if (nextObject === object) {
+                nextObject = copy(object);
+              }
+              if (type(nextObject) === "Map") {
+                nextObject.set(key, nextValueForKey);
+              } else {
+                nextObject[key] = nextValueForKey;
+              }
+            }
+          }
+        });
+        return nextObject;
+      };
+      return Context2;
+    }();
+    exports.Context = Context;
+    var defaultCommands = {
+      $push: function(value, nextObject, spec) {
+        invariantPushAndUnshift(nextObject, spec, "$push");
+        return value.length ? nextObject.concat(value) : nextObject;
+      },
+      $unshift: function(value, nextObject, spec) {
+        invariantPushAndUnshift(nextObject, spec, "$unshift");
+        return value.length ? value.concat(nextObject) : nextObject;
+      },
+      $splice: function(value, nextObject, spec, originalObject) {
+        invariantSplices(nextObject, spec);
+        value.forEach(function(args) {
+          invariantSplice(args);
+          if (nextObject === originalObject && args.length) {
+            nextObject = copy(originalObject);
+          }
+          splice.apply(nextObject, args);
+        });
+        return nextObject;
+      },
+      $set: function(value, _nextObject, spec) {
+        invariantSet(spec);
+        return value;
+      },
+      $toggle: function(targets, nextObject) {
+        invariantSpecArray(targets, "$toggle");
+        var nextObjectCopy = targets.length ? copy(nextObject) : nextObject;
+        targets.forEach(function(target) {
+          nextObjectCopy[target] = !nextObject[target];
+        });
+        return nextObjectCopy;
+      },
+      $unset: function(value, nextObject, _spec, originalObject) {
+        invariantSpecArray(value, "$unset");
+        value.forEach(function(key) {
+          if (Object.hasOwnProperty.call(nextObject, key)) {
+            if (nextObject === originalObject) {
+              nextObject = copy(originalObject);
+            }
+            delete nextObject[key];
+          }
+        });
+        return nextObject;
+      },
+      $add: function(values, nextObject, _spec, originalObject) {
+        invariantMapOrSet(nextObject, "$add");
+        invariantSpecArray(values, "$add");
+        if (type(nextObject) === "Map") {
+          values.forEach(function(_a) {
+            var key = _a[0], value = _a[1];
+            if (nextObject === originalObject && nextObject.get(key) !== value) {
+              nextObject = copy(originalObject);
+            }
+            nextObject.set(key, value);
+          });
+        } else {
+          values.forEach(function(value) {
+            if (nextObject === originalObject && !nextObject.has(value)) {
+              nextObject = copy(originalObject);
+            }
+            nextObject.add(value);
+          });
+        }
+        return nextObject;
+      },
+      $remove: function(value, nextObject, _spec, originalObject) {
+        invariantMapOrSet(nextObject, "$remove");
+        invariantSpecArray(value, "$remove");
+        value.forEach(function(key) {
+          if (nextObject === originalObject && nextObject.has(key)) {
+            nextObject = copy(originalObject);
+          }
+          nextObject.delete(key);
+        });
+        return nextObject;
+      },
+      $merge: function(value, nextObject, _spec, originalObject) {
+        invariantMerge(nextObject, value);
+        getAllKeys(value).forEach(function(key) {
+          if (value[key] !== nextObject[key]) {
+            if (nextObject === originalObject) {
+              nextObject = copy(originalObject);
+            }
+            nextObject[key] = value[key];
+          }
+        });
+        return nextObject;
+      },
+      $apply: function(value, original) {
+        invariantApply(value);
+        return value(original);
+      }
+    };
+    var defaultContext = new Context();
+    exports.isEquals = defaultContext.update.isEquals;
+    exports.extend = defaultContext.extend;
+    exports.default = defaultContext.update;
+    exports.default.default = module.exports = assign(exports.default, exports);
+    function invariantPushAndUnshift(value, spec, command) {
+      invariant(Array.isArray(value), function() {
+        return "update(): expected target of " + stringifiable(command) + " to be an array; got " + stringifiable(value) + ".";
+      });
+      invariantSpecArray(spec[command], command);
+    }
+    function invariantSpecArray(spec, command) {
+      invariant(Array.isArray(spec), function() {
+        return "update(): expected spec of " + stringifiable(command) + " to be an array; got " + stringifiable(spec) + ". Did you forget to wrap your parameter in an array?";
+      });
+    }
+    function invariantSplices(value, spec) {
+      invariant(Array.isArray(value), function() {
+        return "Expected $splice target to be an array; got " + stringifiable(value);
+      });
+      invariantSplice(spec.$splice);
+    }
+    function invariantSplice(value) {
+      invariant(Array.isArray(value), function() {
+        return "update(): expected spec of $splice to be an array of arrays; got " + stringifiable(value) + ". Did you forget to wrap your parameters in an array?";
+      });
+    }
+    function invariantApply(fn) {
+      invariant(typeof fn === "function", function() {
+        return "update(): expected spec of $apply to be a function; got " + stringifiable(fn) + ".";
+      });
+    }
+    function invariantSet(spec) {
+      invariant(Object.keys(spec).length === 1, function() {
+        return "Cannot have more than one key in an object with $set";
+      });
+    }
+    function invariantMerge(target, specValue) {
+      invariant(specValue && typeof specValue === "object", function() {
+        return "update(): $merge expects a spec of type 'object'; got " + stringifiable(specValue);
+      });
+      invariant(target && typeof target === "object", function() {
+        return "update(): $merge expects a target of type 'object'; got " + stringifiable(target);
+      });
+    }
+    function invariantMapOrSet(target, command) {
+      var typeOfTarget = type(target);
+      invariant(typeOfTarget === "Map" || typeOfTarget === "Set", function() {
+        return "update(): " + stringifiable(command) + " expects a target of type Set or Map; got " + stringifiable(typeOfTarget);
+      });
+    }
+  })(immutabilityHelper, immutabilityHelper.exports);
+  var update = /* @__PURE__ */ getDefaultExportFromCjs(immutabilityHelper.exports);
+  /*!
    * vue-nestable v2.6.0
    * (c) Ralph Huwiler <ralph@huwiler.rocks>
    * Released under the MIT License.
-   */function r(t){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}function s(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}function o(t,e){var n=Object.keys(t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(t);e&&(i=i.filter((function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))),n.push.apply(n,i)}return n}function l(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{};e%2?o(Object(n),!0).forEach((function(e){s(t,e,n[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(n)):o(Object(n)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(n,e))}))}return t}function u(t){return function(t){if(Array.isArray(t))return d(t)}(t)||function(t){if("undefined"!=typeof Symbol&&Symbol.iterator in Object(t))return Array.from(t)}(t)||c(t)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function c(t,e){if(t){if("string"==typeof t)return d(t,e);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?d(t,e):void 0}}function d(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,i=new Array(e);n<e;n++)i[n]=t[n];return i}function h(t,e){var n;if("undefined"==typeof Symbol||null==t[Symbol.iterator]){if(Array.isArray(t)||(n=c(t))||e&&t&&"number"==typeof t.length){n&&(t=n);var i=0,r=function(){};return{s:r,n:function(){return i>=t.length?{done:!0}:{done:!1,value:t[i++]}},e:function(t){throw t},f:r}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var s,o=!0,a=!1;return{s:function(){n=t[Symbol.iterator]()},n:function(){var t=n.next();return o=t.done,t},e:function(t){a=!0,s=t},f:function(){try{o||null==n.return||n.return()}finally{if(a)throw s}}}}var p={},f={methods:{registerNestable:function(t){var e=this._getByGroup(t.group);e.onDragStartListeners.push(t.onDragStart),e.onMouseEnterListeners.push(t.onMouseEnter),e.onMouseMoveListeners.push(t.onMouseMove)},notifyDragStart:function(t,e,n){var i,r=h(this._getByGroup(t).onDragStartListeners);try{for(r.s();!(i=r.n()).done;){(0,i.value)(e,n)}}catch(s){r.e(s)}finally{r.f()}},notifyMouseEnter:function(t,e,n,i){var r,s=h(this._getByGroup(t).onMouseEnterListeners);try{for(s.s();!(r=s.n()).done;){(0,r.value)(e,n,i)}}catch(o){s.e(o)}finally{s.f()}},notifyMouseMove:function(t,e){var n,i=h(this._getByGroup(t).onMouseMoveListeners);try{for(i.s();!(n=i.n()).done;){(0,n.value)(e)}}catch(r){i.e(r)}finally{i.f()}},_getByGroup:function(t){return p[t]||(p[t]={onDragStartListeners:[],onMouseEnterListeners:[],onMouseMoveListeners:[],onDragStart:[],dragItem:null}),p[t]}}},m={name:"NestableItem",mixins:[f],props:{item:{type:Object,required:!0,default:function(){return{}}},index:{type:Number,required:!1,default:null},isChild:{type:Boolean,required:!1,default:!1},isCopy:{type:Boolean,required:!1,default:!1},options:{type:Object,required:!0,default:function(){return{}}}},inject:["listId","group","keyProp"],data:function(){return{breakPoint:null,moveDown:!1}},computed:{isDragging:function(){var t=this.options.dragItem;return!this.isCopy&&t&&t[this.options.keyProp]===this.item[this.options.keyProp]},hasChildren:function(){return this.item[this.options.childrenProp]&&this.item[this.options.childrenProp].length>0},hasHandle:function(){return!!this.$scopedSlots.handler},normalizedClassProp:function(){var t=this.item[this.options.classProp];return t?Array.isArray(t)?t:("undefined"==typeof a||r(a),[t]):[]},itemClasses:function(){var t=this.isDragging?["is-dragging"]:[];return["nestable-item".concat(this.isCopy?"-copy":""),"nestable-item".concat(this.isCopy?"-copy":"","-").concat(this.item[this.options.keyProp])].concat(t,u(this.normalizedClassProp))}},methods:{onMouseEnter:function(t){if(this.options.dragItem){if(!t.movementY)return this.sendNotification(t);this.moveDown=t.movementY>0,this.breakPoint=t.target.getBoundingClientRect().height/2}},onMouseLeave:function(){this.breakPoint=null},onMouseMove:function(t){if(this.breakPoint){var e=t.offsetY-this.breakPoint;this.moveDown&&e<this.breakPoint/4||!this.moveDown&&e>-this.breakPoint/4||this.sendNotification(t)}},sendNotification:function(t){this.breakPoint=null;var e=this.item||this.$parent.item;this.notifyMouseEnter(this.group,t,this.listId,e)}}},y={methods:{getPathById:function(t){var e=this,n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:this.value,i=[];return n.every((function(n,r){if(n[e.keyProp]===t)i.push(r);else if(n[e.childrenProp]){var s=e.getPathById(t,n[e.childrenProp]);s.length&&(i=i.concat(r).concat(s))}return 0===i.length})),i},getItemByPath:function(t){var e=this,n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:this.value,i=null;return t.forEach((function(t){var r=i&&i[e.childrenProp]?i[e.childrenProp]:n;i=r[t]})),i},getItemDepth:function(t){var e=1;if(t[this.childrenProp]&&t[this.childrenProp].length>0){var n=t[this.childrenProp].map(this.getItemDepth);e+=Math.max.apply(Math,u(n))}return e},getSplicePath:function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},n={},i=e.numToRemove||0,r=e.itemsToInsert||[],o=t.length-1,a=n;return t.forEach((function(t,n){if(n===o)a.$splice=[[t,i].concat(u(r))];else{var l={};a[t]=s({},e.childrenProp,l),a=l}})),n},getRealNextPath:function(t,e){var n=t.length-1,i=e.length-1;if(t.length<e.length){var r=!1;return e.map((function(s,o){return r?o===i?s+1:s:"number"!=typeof t[o]?s:e[o]>t[o]&&o===n?(r=!0,s-1):s}))}if(t.length===e.length&&e[i]>t[i]){var s=this.getItemByPath(e);if(s[this.childrenProp]&&s[this.childrenProp].length&&!this.isCollapsed(s))return e.slice(0,-1).concat(e[i]-1).concat(0)}return e}}},g=function t(e,n){return e.map((function(e){return l(l({},e),{},s({},n,e[n]?t(e[n],n):[]))}))},v=t({render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{class:["nestable","nestable-"+t.group,t.rtl?"nestable-rtl":""]},[n("ol",{staticClass:"nestable-list nestable-group"},[t.listIsEmpty?n("Placeholder",{attrs:{options:t.itemOptions}},[t._t("placeholder",[t._v("\n        No content\n      ")])],2):t._e(),t._v(" "),t._l(t.value,(function(e,i){return[n("NestableItem",{key:e[t.keyProp],attrs:{index:i,item:e,options:t.itemOptions},scopedSlots:t._u([t._l(Object.keys(t.$scopedSlots),(function(e){return{key:e,fn:function(n){return[t._t(e,null,null,n)]}}}))],null,!0)})]}))],2),t._v(" "),t.dragItem?[n("div",{staticClass:"nestable-drag-layer"},[n("ol",{staticClass:"nestable-list",style:t.listStyles},[n("NestableItem",{attrs:{item:t.dragItem,options:t.itemOptions,"is-copy":!0},scopedSlots:t._u([t._l(Object.keys(t.$scopedSlots),(function(e){return{key:e,fn:function(n){return[t._t(e,null,null,n)]}}}))],null,!0)})],1)])]:t._e()],2)},staticRenderFns:[]},undefined,{name:"VueNestable",components:{NestableItem:t({render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("li",{class:t.itemClasses},[n("div",{staticClass:"nestable-item-content",on:{mouseenter:t.onMouseEnter,mouseleave:t.onMouseLeave,mousemove:t.onMouseMove}},[t._t("default",null,{index:t.index,item:t.item,isChild:t.isChild})],2),t._v(" "),t.hasChildren?n("ol",{staticClass:"nestable-list"},[t._l(t.item[t.options.childrenProp],(function(e,i){return[n("NestableItem",{key:e[t.keyProp],attrs:{item:e,index:i,options:t.options,"is-copy":t.isCopy,"is-child":""},scopedSlots:t._u([t._l(Object.keys(t.$scopedSlots),(function(e){return{key:e,fn:function(n){return[t._t(e,null,null,n)]}}}))],null,!0)})]}))],2):t._e()])},staticRenderFns:[]},undefined,m,undefined,false,undefined,!1,void 0,void 0,void 0),Placeholder:t({render:function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("li",[n("div",{staticClass:"nestable-list-empty",on:{mouseenter:t.onMouseEnter}},[t._t("default")],2)])},staticRenderFns:[]},undefined,{name:"Placeholder",mixins:[f],props:{index:{type:Number,required:!1,default:null},options:{type:Object,required:!1,default:function(){return{}}}},inject:["listId","group"],computed:{isDragging:function(){return this.options.dragItem}},methods:{onMouseEnter:function(t){this.options.dragItem&&this.notifyMouseEnter(this.group,t,this.listId,null)}}},undefined,false,undefined,!1,void 0,void 0,void 0)},mixins:[y,f,{methods:{hook:function(t,e){if(!this.hooks[t])return!0;var n=this.hooks[t](e);return n||void 0===n}}}],props:{value:{type:Array,required:!0,default:function(){return[]}},threshold:{type:Number,required:!1,default:30},maxDepth:{type:Number,required:!1,default:10},keyProp:{type:String,required:!1,default:"id"},classProp:{type:String,required:!1,default:null},group:{type:[String,Number],required:!1,default:function(){return Math.random().toString(36).slice(2)}},childrenProp:{type:String,required:!1,default:"children"},collapsed:{type:Boolean,required:!1,default:!1},hooks:{type:Object,required:!1,default:function(){return{}}},rtl:{type:Boolean,required:!1,default:!1}},provide:function(){return{listId:this.listId,group:this.group,keyProp:this.keyProp,onDragEnd:this.onDragEnd}},data:function(){return{itemsOld:null,dragItem:null,mouse:{last:{x:0},shift:{x:0}},el:null,elCopyStyles:null,isDirty:!1,collapsedGroups:[],listId:Math.random().toString(36).slice(2)}},computed:{listIsEmpty:function(){return 0===this.value.length},itemOptions:function(){return{dragItem:this.dragItem,keyProp:this.keyProp,classProp:this.classProp,childrenProp:this.childrenProp}},listStyles:function(){var t=document.querySelector(".nestable-"+this.group+" .nestable-item-"+this.dragItem[this.keyProp]),e={};return t&&(e.width="".concat(t.clientWidth,"px")),this.elCopyStyles&&(e=l(l({},e),this.elCopyStyles)),e}},created:function(){var t=g(this.value,this.childrenProp);this.$emit("input",t),this.isDirty=!1,this.registerNestable(this)},beforeDestroy:function(){this.stopTrackMouse()},methods:{startTrackMouse:function(){document.addEventListener("mousemove",this.onMouseMove),document.addEventListener("mouseup",this.onDragEnd),document.addEventListener("touchend",this.onDragEnd),document.addEventListener("touchcancel",this.onDragEnd),document.addEventListener("keydown",this.onKeyDown)},stopTrackMouse:function(){document.removeEventListener("mousemove",this.onMouseMove),document.removeEventListener("mouseup",this.onDragEnd),document.removeEventListener("touchend",this.onDragEnd),document.removeEventListener("touchcancel",this.onDragEnd),document.removeEventListener("keydown",this.onKeyDown),this.elCopyStyles=null},onDragStart:function(t,e){var n,i,r=this;t&&(t.preventDefault(),t.stopPropagation()),this.el=(n=t.target,i=".nestable-item",n.closest(i)),this.startTrackMouse(),this.dragItem=e,this.itemsOld=this.value,this.$nextTick((function(){r.onMouseMove(t)}))},onDragEnd:function(t,e){t&&t.preventDefault(),this.stopTrackMouse(),this.el=null,e?this.dragRevert():this.dragApply()},onKeyDown:function(t){27===t.which&&this.onDragEnd(null,!0)},getXandYFromEvent:function(t){var e=t.clientX,n=t.clientY,i=t.targetTouches;if(i){var r=i[0];e=r.clientX,n=r.clientY;var s=new Event("mouseenter"),o=document.elementFromPoint(e,n),a=o&&(o.closest(".nestable-item-content")||o.closest(".nestable-list-empty"));a&&a.dispatchEvent(s)}return{clientX:e,clientY:n}},onMouseMove:function(t){t&&t.preventDefault();var e=this.getXandYFromEvent(t),n=e.clientX,i=e.clientY;0===this.mouse.last.x&&(this.mouse.last.x=n);var r={transform:"translate("+n+"px, "+i+"px)"},s=document.querySelector(".nestable-"+this.group+" .nestable-drag-layer");if(s){var o,a,u=s.getBoundingClientRect(),c=u.top,d=u.left,h=document.querySelector(".nestable-"+this.group+" .nestable-drag-layer > .nestable-list");if(this.elCopyStyles){if(this.elCopyStyles=l(l({},this.elCopyStyles),r),h)for(var p in r)Object.prototype.hasOwnProperty.call(r,p)&&(h.style[p]=r[p]);var f=this.rtl?this.mouse.last.x-n:n-this.mouse.last.x;f>=0&&this.mouse.shift.x>=0||f<=0&&this.mouse.shift.x<=0?this.mouse.shift.x+=f:this.mouse.shift.x=0,this.mouse.last.x=n,Math.abs(this.mouse.shift.x)>this.threshold&&(this.mouse.shift.x>0?this.tryIncreaseDepth(this.dragItem):this.tryDecreaseDepth(this.dragItem),this.mouse.shift.x=0)}else{var m=(o=this.el,a=o.getBoundingClientRect(),{top:Math.round(a.top),left:Math.round(a.left)});this.elCopyStyles=l({marginTop:"".concat(m.top-i-c,"px"),marginLeft:"".concat(m.left-n-d,"px")},r)}}},moveItem:function(t){var e=t.dragItem,n=t.pathFrom,r=t.pathTo,s=this.getRealNextPath(n,r),o=this.getSplicePath(n,{numToRemove:1,childrenProp:this.childrenProp}),a=this.getSplicePath(s,{numToRemove:0,itemsToInsert:[e],childrenProp:this.childrenProp});if(this.hook("beforeMove",{dragItem:e,pathFrom:n,pathTo:s})){var l=this.value;l=i(l,o),l=i(l,a),this.isDirty=!0,this.pathTo=s,this.$emit("input",l)}},tryIncreaseDepth:function(t){var e=this.getPathById(t[this.keyProp]),n=e[e.length-1],i=e.length+this.getItemDepth(t);if(n>0&&i<=this.maxDepth){var r=this.getItemByPath(e.slice(0,-1).concat(n-1));if(r[this.childrenProp]&&(!r[this.childrenProp].length||!this.isCollapsed(r))){var s=e.slice(0,-1).concat(n-1).concat(r[this.childrenProp].length);this.moveItem({dragItem:t,pathFrom:e,pathTo:s})}}},tryDecreaseDepth:function(t){var e=this.getPathById(t[this.keyProp]),n=e[e.length-1];if(e.length>1&&n+1===this.getItemByPath(e.slice(0,-1))[this.childrenProp].length){var i=e.slice(0,-1);i[i.length-1]+=1,this.moveItem({dragItem:t,pathFrom:e,pathTo:i})}},onMouseEnter:function(t,e,n){t&&(t.preventDefault(),t.stopPropagation());var i=this.dragItem;if(i&&(null===n||i[this.keyProp]!==n[this.keyProp])){var r,s=this.getPathById(i[this.keyProp]);if(e===this.listId||0!==s.length)if(r=null===n?s.length>0?[]:[0]:this.getPathById(n[this.keyProp]),!(this.getRealNextPath(s,r).length+(this.getItemDepth(i)-1)>this.maxDepth)){var o={};if(this.collapsed&&s.length>1){var a=this.getItemByPath(s.slice(0,-1));1===a[this.childrenProp].length&&(o=this.onToggleCollapse(a,!0))}this.moveItem({dragItem:i,pathFrom:s,pathTo:r},o)}}},isCollapsed:function(t){return!!(this.collapsedGroups.indexOf(t[this.keyProp])>-1^this.collapsed)},dragApply:function(){this.$emit("change",this.dragItem,{items:this.value,pathTo:this.pathTo}),this.pathTo=null,this.itemsOld=null,this.dragItem=null,this.isDirty=!1},dragRevert:function(){this.$emit("input",this.itemsOld),this.pathTo=null,this.itemsOld=null,this.dragItem=null,this.isDirty=!1}}},undefined,false,undefined,!1,void 0,void 0,void 0),b=t({render:function(){var t=this,e=t.$createElement;return(t._self._c||e)("div",{staticClass:"nestable-handle",attrs:{draggable:""},on:{dragstart:t.dragstart,touchstart:t.dragstart,touchend:t.touchend,touchmove:t.touchmove}},[t._t("default")],2)},staticRenderFns:[]},undefined,{name:"VueNestableHandle",mixins:[f],props:{item:{type:Object,required:!1,default:function(){return{}}}},inject:["group","onDragEnd"],methods:{dragstart:function(t){var e=this.item||this.$parent.item;this.notifyDragStart(this.group,t,e)},touchend:function(t){this.onDragEnd(t)},touchmove:function(t){this.notifyMouseMove(this.group,t)}}},undefined,false,undefined,!1,void 0,void 0,void 0),_={install:function(t,e){t.component("VueNestable",v),t.component("VueNestableHandle",b)}},k=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("article",{staticClass:"k-tiller-item"},[n("div",{staticClass:"k-item-cardlet"},[t.status?n("div",{staticClass:"k-item-handle"},[n("vue-nestable-handle",{attrs:{item:t.item}},[n("svg",{staticClass:"k-handle-icon",attrs:{viewBox:"0 0 256 512",xmlns:"http://www.w3.org/2000/svg"}},[n("path",{attrs:{d:"M32 96C32 78.33 46.33 64 64 64C81.67 64 96 78.33 96 96C96 113.7 81.67 128 64 128C46.33 128 32 113.7 32 96zM32 256C32 238.3 46.33 224 64 224C81.67 224 96 238.3 96 256C96 273.7 81.67 288 64 288C46.33 288 32 273.7 32 256zM96 416C96 433.7 81.67 448 64 448C46.33 448 32 433.7 32 416C32 398.3 46.33 384 64 384C81.67 384 96 398.3 96 416zM160 96C160 78.33 174.3 64 192 64C209.7 64 224 78.33 224 96C224 113.7 209.7 128 192 128C174.3 128 160 113.7 160 96zM224 256C224 273.7 209.7 288 192 288C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224C209.7 224 224 238.3 224 256zM160 416C160 398.3 174.3 384 192 384C209.7 384 224 398.3 224 416C224 433.7 209.7 448 192 448C174.3 448 160 433.7 160 416z"}})])])],1):t._e(),n("div",{staticClass:"k-item-content"},[n("div",{staticClass:"k-content-display",on:{click:t.drawer_edit}},[t.item.image?n("k-item-image",{attrs:{width:"38px",image:Object.assign({},t.item.image,{cover:!0,ratio:"2/2"})}}):t._e()],1),n("div",{staticClass:"k-content-meta",on:{click:t.drawer_edit}},[n("div",{staticClass:"k-meta-title"},[t._v(" "+t._s(t.item.title)+" "),t.item.children.length>0?n("span",{staticClass:"k-title-suffix"},[t._v(" ("+t._s(t.item.children.length)+" "+t._s(t.item.children.length>1?"subpages":"subpage")+") ")]):t._e()])]),n("div",{staticClass:"k-content-action"},[t.status?n("k-dropdown",{staticClass:"k-item-menu"},[n("k-button",{attrs:{icon:"dots"},on:{click:t.dialog_tiller}}),n("k-dropdown-content",{ref:"dialog_tiller",attrs:{align:"right"}},[n("k-dropdown-item",{on:{click:function(e){return t.dialog_pages(t.item)}}},[n("div",{staticClass:"k-menu-title"},[n("k-icon",{staticClass:"k-menu-icon",attrs:{type:"page"}}),n("span",[t._v(" Add Pages ")])],1),n("p",{staticClass:"k-menu-text"},[t._v(" Add pages from the kirby file system as a child to "+t._s(t.item.title)+" ")])]),n("k-dropdown-item",{on:{click:t.dialog_files}},[n("div",{staticClass:"k-menu-title"},[n("k-icon",{staticClass:"k-menu-icon",attrs:{type:"file"}}),n("span",[t._v(" Add Files ")])],1),n("p",{staticClass:"k-menu-text"},[t._v(" Add files from the kirby file system as a child to "+t._s(t.item.title)+" ")])]),n("k-dropdown-item",{on:{click:t.dialog_pages}},[n("div",{staticClass:"k-menu-title"},[n("k-icon",{staticClass:"k-menu-icon",attrs:{type:"bolt"}}),n("span",[t._v(" Add Custom ")])],1),n("p",{staticClass:"k-menu-text"},[t._v(" Add a custom link not from the kirby file system as a child to "+t._s(t.item.title)+" ")])]),n("k-dropdown-item",[n("div",{staticClass:"k-menu-divider"})]),n("k-dropdown-item",{on:{click:t.drawer_edit}},[n("div",{staticClass:"k-menu-title"},[n("k-icon",{staticClass:"k-menu-icon",attrs:{type:"edit"}}),n("span",[t._v(" Edit Item ")])],1),n("p",{staticClass:"k-menu-text"},[t._v(" Edit custom fields for this menu item ")])]),n("k-dropdown-item",{on:{click:t.dialog_remove}},[n("div",{staticClass:"k-menu-title k-menu-negative"},[n("k-icon",{staticClass:"k-menu-icon",attrs:{type:"trash"}}),n("span",[t._v(" Remove Item ")])],1),n("p",{staticClass:"k-menu-text"},[t._v(" Remove this item from the menu ")])])],1)],1):t._e()],1)])]),n("k-pages-dialog",{ref:"dialog_pages",on:{submit:t.action_kirby}}),n("k-files-dialog",{ref:"dialog_files",on:{submit:t.action_kirby}}),n("k-drawer",{ref:"drawer_edit",attrs:{icon:"bolt",title:"Edit "+t.item.title}},[n("k-form",{attrs:{fields:t.fieldsets},model:{value:t.item.fields,callback:function(e){t.$set(t.item,"fields",e)},expression:"item.fields"}})],1),n("k-dialog",{ref:"dialog_remove",attrs:{icon:"trash",theme:"negative",submitButton:"Remove"},on:{submit:t.action_remove}},[n("k-text",[t._v(" Do you really want to remove "),n("strong",[t._v(t._s(t.item.title))]),t._v("? "),t.item.children.length?n("div",[t._v(" It has the following menu items directly underneath: "),t._l(t.item.children,(function(e,i){return n("span",[t._v(" "+t._s(e.title)),n("br")])}))],2):t._e()])],1)],1)};function C(t,e,n,i,r,s,o,a){var l,u="function"==typeof t?t.options:t;if(e&&(u.render=e,u.staticRenderFns=n,u._compiled=!0),i&&(u.functional=!0),s&&(u._scopeId="data-v-"+s),o?(l=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),r&&r.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},u._ssrRegister=l):r&&(l=a?function(){r.call(this,(u.functional?this.parent:this).$root.$options.shadowRoot)}:r),l)if(u.functional){u._injectStyles=l;var c=u.render;u.render=function(t,e){return l.call(e),c(t,e)}}else{var d=u.beforeCreate;u.beforeCreate=d?[].concat(d,l):[l]}return{exports:t,options:u}}const P={name:"tiller-item",props:{list:{type:Array,required:!0},item:{type:Object,required:!0},index:{type:Number,required:!0},status:{type:Boolean,required:!0},search:{type:Object,required:!0},fields:{type:Object,required:!0},fieldsets:{type:Object,required:!0},pages:{type:Object,required:!0},files:{type:Object,required:!0},endpoints:{type:Object,required:!0}},methods:{drawer_edit(){this.$refs.drawer_edit.open()},dialog_tiller(){this.$refs.dialog_tiller.open()},dialog_remove(t){this.$refs.dialog_remove.open()},dialog_close(){this.$refs.dialog_remove.close()},dialog_pages(t){this.$refs.dialog_pages.open({item:t,multiple:!0,search:this.pages.search,endpoint:this.endpoints.field+"/pages",selected:this.pages.selected.map((t=>t.id))})},dialog_files(){this.$refs.dialog_files.open({multiple:!0,search:this.files.search,endpoint:this.endpoints.field+"/files",selected:this.files.selected.map((t=>t.id))})},action_kirby(t){t.map((t=>{this.item.children.push({id:this.$helper.string.random(16),uuid:t.uuid,link:t.link,title:t.text,url:t.url,image:t.image,fields:this.fields,children:[]})}))},action_remove(){this.$emit("action_remove",{haystack:this.list,needle:this.item.id}),this.dialog_close()}}},x={};var O=C(P,k,[],!1,w,"3e80bcea",null,null);function w(t){for(let e in x)this[e]=x[e]}const E={props:{help:{type:String,required:!1},value:{type:Array,required:!0},label:{type:String,required:!0},roles:{type:Object,required:!1},levels:{type:Number,required:!1,default:6},disabled:{type:Boolean,required:!1},required:{type:Boolean,required:!1},endpoints:{type:Object,required:!0},fields:{type:Object,required:!1},fieldsets:{type:Object,required:!1},pages:{type:Object,required:!0},files:{type:Object,required:!0}},components:{tillerItem:function(){return O.exports}()},data(){return{list:this.value||[]}},watch:{return_list:{handler(){this.$emit("input",this.return_list)},deep:!0,immediate:!0}},methods:{dialog_tiller(){this.$refs.dialog_tiller.open({state:!0})},dialog_custom(){this.$refs.dialog_custom.open({state:!0})},dialog_pages(t){this.$refs.dialog_pages.open({item:t,multiple:!0,search:this.pages.search,endpoint:this.endpoints.field+"/pages",selected:this.pages.selected.map((t=>t.id))})},dialog_files(){this.$refs.dialog_files.open({multiple:!0,search:this.files.search,endpoint:this.endpoints.field+"/files",selected:this.files.selected.map((t=>t.id))})},action_kirby(t){t.map((t=>{this.return_list.push({id:this.$helper.string.random(16),uuid:t.uuid,link:t.link,title:t.text,url:t.url,image:t.image,fields:this.fields,children:[]})}))},action_remove(t){return this.return_list=t.haystack.filter((e=>e.id!==t.needle)).map((e=>(e.children&&e.children.length&&(e.children=this.action_remove({haystack:e.children,needle:t.needle})),e)))}},computed:{return_list:{get(){return this.list},set(t){this.list=t}},return_help(){return this.help&&this.help.length>0},return_status(){return!this.roles||Object.keys(this.roles).filter((t=>this.roles[t])).includes(this.$user.role)}}},S={};var $=C(E,(function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("k-field",{staticClass:"k-form-field k-tiller-field",class:t.return_status?"tiller-unlocked":"tiller-locked",attrs:{help:t.help,label:t.label,value:t.value,disabled:t.disabled,required:t.required},scopedSlots:t._u([t.return_status?{key:"options",fn:function(){return[n("k-dropdown",{staticClass:"k-tiller-menu"},[n("k-button",{attrs:{icon:"dots"},on:{click:t.dialog_tiller}}),n("k-dropdown-content",{ref:"dialog_tiller",attrs:{align:"right"}},[n("k-dropdown-item",{on:{click:t.dialog_pages}},[n("div",{staticClass:"k-menu-title"},[n("k-icon",{staticClass:"k-menu-icon",attrs:{type:"page"}}),n("span",[t._v(" Add Pages ")])],1),n("p",{staticClass:"k-menu-text"},[t._v(" Add pages from the kirby file system ")])]),n("k-dropdown-item",{on:{click:t.dialog_files}},[n("div",{staticClass:"k-menu-title"},[n("k-icon",{staticClass:"k-menu-icon",attrs:{type:"file"}}),n("span",[t._v(" Add Files ")])],1),n("p",{staticClass:"k-menu-text"},[t._v(" Add files from the kirby file system ")])]),n("k-dropdown-item",{on:{click:t.dialog_custom}},[n("div",{staticClass:"k-menu-title"},[n("k-icon",{staticClass:"k-menu-icon",attrs:{type:"bolt"}}),n("span",[t._v(" Add Custom ")])],1),n("p",{staticClass:"k-menu-text"},[t._v(" Add a custom link not from the kirby file system ")])])],1)],1)]},proxy:!0}:{key:"options",fn:function(){return[n("div",{staticClass:"k-field-status"},[n("k-icon",{staticClass:"k-field-status-icon",attrs:{type:"lock"}}),n("k-text",{staticClass:"k-field-status-text",attrs:{theme:"help"}},[t._v(" This field is locked for your user role ")])],1)]},proxy:!0},t.return_help?{key:"help",fn:function(){return[t.return_status?n("k-grid",[n("k-column",{attrs:{width:"1/2"}},[n("k-text",{staticClass:"k-field-help",attrs:{theme:"help"},domProps:{innerHTML:t._s(t.help)}})],1)],1):t._e()]},proxy:!0}:null],null,!0)},[n("vue-nestable",{attrs:{"cross-list":"",keyProp:"id",childrenProp:"children"},scopedSlots:t._u([{key:"default",fn:function(e){var i=e.item,r=e.index;return[n("tiller-item",{attrs:{item:i,index:r,pages:t.pages,files:t.files,search:t.search,list:t.return_list,fieldsets:t.fieldsets,endpoints:t.endpoints,status:t.return_status},on:{action_remove:t.action_remove},scopedSlots:t._u([{key:"handle",fn:function(){return[n("vue-nestable-handle",{attrs:{item:i}},[n("svg",{attrs:{viewBox:"0 0 256 512",xmlns:"http://www.w3.org/2000/svg"}},[n("path",{attrs:{d:"M32 96C32 78.33 46.33 64 64 64C81.67 64 96 78.33 96 96C96 113.7 81.67 128 64 128C46.33 128 32 113.7 32 96zM32 256C32 238.3 46.33 224 64 224C81.67 224 96 238.3 96 256C96 273.7 81.67 288 64 288C46.33 288 32 273.7 32 256zM96 416C96 433.7 81.67 448 64 448C46.33 448 32 433.7 32 416C32 398.3 46.33 384 64 384C81.67 384 96 398.3 96 416zM160 96C160 78.33 174.3 64 192 64C209.7 64 224 78.33 224 96C224 113.7 209.7 128 192 128C174.3 128 160 113.7 160 96zM224 256C224 273.7 209.7 288 192 288C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224C209.7 224 224 238.3 224 256zM160 416C160 398.3 174.3 384 192 384C209.7 384 224 398.3 224 416C224 433.7 209.7 448 192 448C174.3 448 160 433.7 160 416z"}})])])]},proxy:!0}],null,!0)})]}}]),model:{value:t.return_list,callback:function(e){t.return_list=e},expression:"return_list"}},[n("k-empty",{attrs:{slot:"placeholder",icon:"bolt"},on:{click:t.dialog_tiller},slot:"placeholder"},[t._v(" No menu items ")])],1),n("k-pages-dialog",{ref:"dialog_pages",on:{submit:t.action_kirby}}),n("k-files-dialog",{ref:"dialog_files",on:{submit:t.action_kirby}})],1)}),[],!1,M,null,null,null);function M(t){for(let e in S)this[e]=S[e]}var I=function(){return $.exports}();panel.plugin("beluga/tiller",{fields:{tiller:I},use:{nestable:_,plugin(t){window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue=t}}})}();
+   */
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function(obj2) {
+        return typeof obj2;
+      };
+    } else {
+      _typeof = function(obj2) {
+        return obj2 && typeof Symbol === "function" && obj2.constructor === Symbol && obj2 !== Symbol.prototype ? "symbol" : typeof obj2;
+      };
+    }
+    return _typeof(obj);
+  }
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+    return obj;
+  }
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly)
+        symbols = symbols.filter(function(sym) {
+          return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+        });
+      keys.push.apply(keys, symbols);
+    }
+    return keys;
+  }
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function(key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function(key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+    return target;
+  }
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  }
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr))
+      return _arrayLikeToArray(arr);
+  }
+  function _iterableToArray(iter) {
+    if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
+      return Array.from(iter);
+  }
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o)
+      return;
+    if (typeof o === "string")
+      return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor)
+      n = o.constructor.name;
+    if (n === "Map" || n === "Set")
+      return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
+      return _arrayLikeToArray(o, minLen);
+  }
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length)
+      len = arr.length;
+    for (var i = 0, arr2 = new Array(len); i < len; i++)
+      arr2[i] = arr[i];
+    return arr2;
+  }
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+  function _createForOfIteratorHelper(o, allowArrayLike) {
+    var it;
+    if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+      if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+        if (it)
+          o = it;
+        var i = 0;
+        var F = function() {
+        };
+        return {
+          s: F,
+          n: function() {
+            if (i >= o.length)
+              return {
+                done: true
+              };
+            return {
+              done: false,
+              value: o[i++]
+            };
+          },
+          e: function(e) {
+            throw e;
+          },
+          f: F
+        };
+      }
+      throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+    var normalCompletion = true, didErr = false, err;
+    return {
+      s: function() {
+        it = o[Symbol.iterator]();
+      },
+      n: function() {
+        var step = it.next();
+        normalCompletion = step.done;
+        return step;
+      },
+      e: function(e) {
+        didErr = true;
+        err = e;
+      },
+      f: function() {
+        try {
+          if (!normalCompletion && it.return != null)
+            it.return();
+        } finally {
+          if (didErr)
+            throw err;
+        }
+      }
+    };
+  }
+  var store = {};
+  var groupsObserver = {
+    methods: {
+      registerNestable: function registerNestable(nestable) {
+        var storeGroup = this._getByGroup(nestable.group);
+        storeGroup.onDragStartListeners.push(nestable.onDragStart);
+        storeGroup.onMouseEnterListeners.push(nestable.onMouseEnter);
+        storeGroup.onMouseMoveListeners.push(nestable.onMouseMove);
+      },
+      notifyDragStart: function notifyDragStart(group, event, item) {
+        var storeGroup = this._getByGroup(group);
+        var _iterator = _createForOfIteratorHelper(storeGroup.onDragStartListeners), _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done; ) {
+            var listener = _step.value;
+            listener(event, item);
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      },
+      notifyMouseEnter: function notifyMouseEnter(group, event, eventList, item) {
+        var storeGroup = this._getByGroup(group);
+        var _iterator2 = _createForOfIteratorHelper(storeGroup.onMouseEnterListeners), _step2;
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done; ) {
+            var listener = _step2.value;
+            listener(event, eventList, item);
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+      },
+      notifyMouseMove: function notifyMouseMove(group, event) {
+        var storeGroup = this._getByGroup(group);
+        var _iterator3 = _createForOfIteratorHelper(storeGroup.onMouseMoveListeners), _step3;
+        try {
+          for (_iterator3.s(); !(_step3 = _iterator3.n()).done; ) {
+            var listener = _step3.value;
+            listener(event);
+          }
+        } catch (err) {
+          _iterator3.e(err);
+        } finally {
+          _iterator3.f();
+        }
+      },
+      _getByGroup: function _getByGroup(group) {
+        if (store[group]) {
+          return store[group];
+        }
+        store[group] = {
+          onDragStartListeners: [],
+          onMouseEnterListeners: [],
+          onMouseMoveListeners: [],
+          onDragStart: [],
+          dragItem: null
+        };
+        return store[group];
+      }
+    }
+  };
+  var script = {
+    name: "NestableItem",
+    mixins: [groupsObserver],
+    props: {
+      item: {
+        type: Object,
+        required: true,
+        default: function _default() {
+          return {};
+        }
+      },
+      index: {
+        type: Number,
+        required: false,
+        default: null
+      },
+      isChild: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
+      isCopy: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
+      options: {
+        type: Object,
+        required: true,
+        default: function _default() {
+          return {};
+        }
+      }
+    },
+    inject: ["listId", "group", "keyProp"],
+    data: function data() {
+      return {
+        breakPoint: null,
+        moveDown: false
+      };
+    },
+    computed: {
+      isDragging: function isDragging() {
+        var dragItem = this.options.dragItem;
+        return !this.isCopy && dragItem && dragItem[this.options.keyProp] === this.item[this.options.keyProp];
+      },
+      hasChildren: function hasChildren() {
+        return this.item[this.options.childrenProp] && this.item[this.options.childrenProp].length > 0;
+      },
+      hasHandle: function hasHandle() {
+        return !!this.$scopedSlots.handler;
+      },
+      normalizedClassProp: function normalizedClassProp() {
+        var classProp = this.item[this.options.classProp];
+        if (!classProp)
+          return [];
+        if (Array.isArray(classProp)) {
+          return classProp;
+        } else if ((typeof a === "undefined" ? "undefined" : _typeof(a)) === "object") {
+          return [classProp];
+        } else {
+          return [classProp];
+        }
+      },
+      itemClasses: function itemClasses() {
+        var isDragging = this.isDragging ? ["is-dragging"] : [];
+        return ["nestable-item".concat(this.isCopy ? "-copy" : ""), "nestable-item".concat(this.isCopy ? "-copy" : "", "-").concat(this.item[this.options.keyProp])].concat(isDragging, _toConsumableArray(this.normalizedClassProp));
+      }
+    },
+    methods: {
+      onMouseEnter: function onMouseEnter(event) {
+        if (!this.options.dragItem)
+          return;
+        if (!event.movementY) {
+          return this.sendNotification(event);
+        }
+        this.moveDown = event.movementY > 0;
+        this.breakPoint = event.target.getBoundingClientRect().height / 2;
+      },
+      onMouseLeave: function onMouseLeave() {
+        this.breakPoint = null;
+      },
+      onMouseMove: function onMouseMove(event) {
+        if (!this.breakPoint)
+          return;
+        var delta = event.offsetY - this.breakPoint;
+        if (this.moveDown && delta < this.breakPoint / 4)
+          return;
+        if (!this.moveDown && delta > -this.breakPoint / 4)
+          return;
+        this.sendNotification(event);
+      },
+      sendNotification: function sendNotification(event) {
+        this.breakPoint = null;
+        var item = this.item || this.$parent.item;
+        this.notifyMouseEnter(this.group, event, this.listId, item);
+      }
+    }
+  };
+  var __vue_script__ = script;
+  var __vue_render__ = function __vue_render__2() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("li", {
+      class: _vm.itemClasses
+    }, [_c("div", {
+      staticClass: "nestable-item-content",
+      on: {
+        "mouseenter": _vm.onMouseEnter,
+        "mouseleave": _vm.onMouseLeave,
+        "mousemove": _vm.onMouseMove
+      }
+    }, [_vm._t("default", null, {
+      "index": _vm.index,
+      "item": _vm.item,
+      "isChild": _vm.isChild
+    })], 2), _vm._v(" "), _vm.hasChildren ? _c("ol", {
+      staticClass: "nestable-list"
+    }, [_vm._l(_vm.item[_vm.options.childrenProp], function(child, childIndex) {
+      return [_c("NestableItem", {
+        key: child[_vm.keyProp],
+        attrs: {
+          "item": child,
+          "index": childIndex,
+          "options": _vm.options,
+          "is-copy": _vm.isCopy,
+          "is-child": ""
+        },
+        scopedSlots: _vm._u([_vm._l(Object.keys(_vm.$scopedSlots), function(slot) {
+          return {
+            key: slot,
+            fn: function fn(scope) {
+              return [_vm._t(slot, null, null, scope)];
+            }
+          };
+        })], null, true)
+      })];
+    })], 2) : _vm._e()]);
+  };
+  var __vue_staticRenderFns__ = [];
+  var __vue_inject_styles__ = void 0;
+  var __vue_scope_id__ = void 0;
+  var __vue_module_identifier__ = void 0;
+  var __vue_is_functional_template__ = false;
+  var __vue_component__ = /* @__PURE__ */ normalizeComponent$1({
+    render: __vue_render__,
+    staticRenderFns: __vue_staticRenderFns__
+  }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, void 0, void 0, void 0);
+  var script$1 = {
+    name: "Placeholder",
+    mixins: [groupsObserver],
+    props: {
+      index: {
+        type: Number,
+        required: false,
+        default: null
+      },
+      options: {
+        type: Object,
+        required: false,
+        default: function _default() {
+          return {};
+        }
+      }
+    },
+    inject: ["listId", "group"],
+    computed: {
+      isDragging: function isDragging() {
+        var dragItem = this.options.dragItem;
+        return dragItem;
+      }
+    },
+    methods: {
+      onMouseEnter: function onMouseEnter(event) {
+        if (!this.options.dragItem)
+          return;
+        this.notifyMouseEnter(this.group, event, this.listId, null);
+      }
+    }
+  };
+  var __vue_script__$1 = script$1;
+  var __vue_render__$1 = function __vue_render__2() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("li", [_c("div", {
+      staticClass: "nestable-list-empty",
+      on: {
+        "mouseenter": _vm.onMouseEnter
+      }
+    }, [_vm._t("default")], 2)]);
+  };
+  var __vue_staticRenderFns__$1 = [];
+  var __vue_inject_styles__$1 = void 0;
+  var __vue_scope_id__$1 = void 0;
+  var __vue_module_identifier__$1 = void 0;
+  var __vue_is_functional_template__$1 = false;
+  var __vue_component__$1 = /* @__PURE__ */ normalizeComponent$1({
+    render: __vue_render__$1,
+    staticRenderFns: __vue_staticRenderFns__$1
+  }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, void 0, void 0, void 0);
+  var nestableHelpers = {
+    methods: {
+      getPathById: function getPathById(id) {
+        var _this = this;
+        var items = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : this.value;
+        var path = [];
+        items.every(function(item, i) {
+          if (item[_this.keyProp] === id) {
+            path.push(i);
+          } else if (item[_this.childrenProp]) {
+            var childrenPath = _this.getPathById(id, item[_this.childrenProp]);
+            if (childrenPath.length) {
+              path = path.concat(i).concat(childrenPath);
+            }
+          }
+          return path.length === 0;
+        });
+        return path;
+      },
+      getItemByPath: function getItemByPath(path) {
+        var _this2 = this;
+        var items = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : this.value;
+        var item = null;
+        path.forEach(function(index2) {
+          var list = item && item[_this2.childrenProp] ? item[_this2.childrenProp] : items;
+          item = list[index2];
+        });
+        return item;
+      },
+      getItemDepth: function getItemDepth(item) {
+        var level = 1;
+        if (item[this.childrenProp] && item[this.childrenProp].length > 0) {
+          var childrenDepths = item[this.childrenProp].map(this.getItemDepth);
+          level += Math.max.apply(Math, _toConsumableArray(childrenDepths));
+        }
+        return level;
+      },
+      getSplicePath: function getSplicePath(path) {
+        var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+        var splicePath = {};
+        var numToRemove = options.numToRemove || 0;
+        var itemsToInsert = options.itemsToInsert || [];
+        var lastIndex = path.length - 1;
+        var currentPath = splicePath;
+        path.forEach(function(index2, i) {
+          if (i === lastIndex) {
+            currentPath.$splice = [[index2, numToRemove].concat(_toConsumableArray(itemsToInsert))];
+          } else {
+            var nextPath = {};
+            currentPath[index2] = _defineProperty({}, options.childrenProp, nextPath);
+            currentPath = nextPath;
+          }
+        });
+        return splicePath;
+      },
+      getRealNextPath: function getRealNextPath(prevPath, nextPath) {
+        var ppLastIndex = prevPath.length - 1;
+        var npLastIndex = nextPath.length - 1;
+        if (prevPath.length < nextPath.length) {
+          var wasShifted = false;
+          return nextPath.map(function(nextIndex, i) {
+            if (wasShifted) {
+              return i === npLastIndex ? nextIndex + 1 : nextIndex;
+            }
+            if (typeof prevPath[i] !== "number") {
+              return nextIndex;
+            }
+            if (nextPath[i] > prevPath[i] && i === ppLastIndex) {
+              wasShifted = true;
+              return nextIndex - 1;
+            }
+            return nextIndex;
+          });
+        } else if (prevPath.length === nextPath.length) {
+          if (nextPath[npLastIndex] > prevPath[npLastIndex]) {
+            var target = this.getItemByPath(nextPath);
+            if (target[this.childrenProp] && target[this.childrenProp].length && !this.isCollapsed(target)) {
+              return nextPath.slice(0, -1).concat(nextPath[npLastIndex] - 1).concat(0);
+            }
+          }
+        }
+        return nextPath;
+      }
+    }
+  };
+  var callsHooks = {
+    methods: {
+      hook: function hook(name, params) {
+        if (!this.hooks[name])
+          return true;
+        var result = this.hooks[name](params);
+        return result || result === void 0;
+      }
+    }
+  };
+  var closest = function closest2(target, selector) {
+    return target.closest(selector);
+  };
+  var getOffsetRect = function getOffsetRect2(elem) {
+    var box = elem.getBoundingClientRect();
+    return {
+      top: Math.round(box.top),
+      left: Math.round(box.left)
+    };
+  };
+  var getTransformProps = function getTransformProps2(x, y) {
+    return {
+      transform: "translate(" + x + "px, " + y + "px)"
+    };
+  };
+  var listWithChildren = function listWithChildren2(list, childrenProp) {
+    return list.map(function(item) {
+      return _objectSpread2(_objectSpread2({}, item), {}, _defineProperty({}, childrenProp, item[childrenProp] ? listWithChildren2(item[childrenProp], childrenProp) : []));
+    });
+  };
+  var script$2 = {
+    name: "VueNestable",
+    components: {
+      NestableItem: __vue_component__,
+      Placeholder: __vue_component__$1
+    },
+    mixins: [nestableHelpers, groupsObserver, callsHooks],
+    props: {
+      value: {
+        type: Array,
+        required: true,
+        default: function _default() {
+          return [];
+        }
+      },
+      threshold: {
+        type: Number,
+        required: false,
+        default: 30
+      },
+      maxDepth: {
+        type: Number,
+        required: false,
+        default: 10
+      },
+      keyProp: {
+        type: String,
+        required: false,
+        default: "id"
+      },
+      classProp: {
+        type: String,
+        required: false,
+        default: null
+      },
+      group: {
+        type: [String, Number],
+        required: false,
+        default: function _default() {
+          return Math.random().toString(36).slice(2);
+        }
+      },
+      childrenProp: {
+        type: String,
+        required: false,
+        default: "children"
+      },
+      collapsed: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
+      hooks: {
+        type: Object,
+        required: false,
+        default: function _default() {
+          return {};
+        }
+      },
+      rtl: {
+        type: Boolean,
+        required: false,
+        default: false
+      }
+    },
+    provide: function provide() {
+      return {
+        listId: this.listId,
+        group: this.group,
+        keyProp: this.keyProp,
+        onDragEnd: this.onDragEnd
+      };
+    },
+    data: function data() {
+      return {
+        itemsOld: null,
+        dragItem: null,
+        mouse: {
+          last: {
+            x: 0
+          },
+          shift: {
+            x: 0
+          }
+        },
+        el: null,
+        elCopyStyles: null,
+        isDirty: false,
+        collapsedGroups: [],
+        listId: Math.random().toString(36).slice(2)
+      };
+    },
+    computed: {
+      listIsEmpty: function listIsEmpty() {
+        return this.value.length === 0;
+      },
+      itemOptions: function itemOptions() {
+        return {
+          dragItem: this.dragItem,
+          keyProp: this.keyProp,
+          classProp: this.classProp,
+          childrenProp: this.childrenProp
+        };
+      },
+      listStyles: function listStyles() {
+        var el = document.querySelector(".nestable-" + this.group + " .nestable-item-" + this.dragItem[this.keyProp]);
+        var listStyles2 = {};
+        if (el) {
+          listStyles2.width = "".concat(el.clientWidth, "px");
+        }
+        if (this.elCopyStyles) {
+          listStyles2 = _objectSpread2(_objectSpread2({}, listStyles2), this.elCopyStyles);
+        }
+        return listStyles2;
+      }
+    },
+    created: function created() {
+      var items = listWithChildren(this.value, this.childrenProp);
+      this.$emit("input", items);
+      this.isDirty = false;
+      this.registerNestable(this);
+    },
+    beforeDestroy: function beforeDestroy() {
+      this.stopTrackMouse();
+    },
+    methods: {
+      startTrackMouse: function startTrackMouse() {
+        document.addEventListener("mousemove", this.onMouseMove);
+        document.addEventListener("mouseup", this.onDragEnd);
+        document.addEventListener("touchend", this.onDragEnd);
+        document.addEventListener("touchcancel", this.onDragEnd);
+        document.addEventListener("keydown", this.onKeyDown);
+      },
+      stopTrackMouse: function stopTrackMouse() {
+        document.removeEventListener("mousemove", this.onMouseMove);
+        document.removeEventListener("mouseup", this.onDragEnd);
+        document.removeEventListener("touchend", this.onDragEnd);
+        document.removeEventListener("touchcancel", this.onDragEnd);
+        document.removeEventListener("keydown", this.onKeyDown);
+        this.elCopyStyles = null;
+      },
+      onDragStart: function onDragStart(event, item) {
+        var _this = this;
+        if (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        this.el = closest(event.target, ".nestable-item");
+        this.startTrackMouse();
+        this.dragItem = item;
+        this.itemsOld = this.value;
+        this.$nextTick(function() {
+          _this.onMouseMove(event);
+        });
+      },
+      onDragEnd: function onDragEnd(event, isCancel) {
+        event && event.preventDefault();
+        this.stopTrackMouse();
+        this.el = null;
+        isCancel ? this.dragRevert() : this.dragApply();
+      },
+      onKeyDown: function onKeyDown(event) {
+        if (event.which === 27) {
+          this.onDragEnd(null, true);
+        }
+      },
+      getXandYFromEvent: function getXandYFromEvent(event) {
+        var clientX = event.clientX, clientY = event.clientY;
+        var targetTouches = event.targetTouches;
+        if (targetTouches) {
+          var touch = targetTouches[0];
+          clientX = touch.clientX;
+          clientY = touch.clientY;
+          var _event = new Event("mouseenter");
+          var element = document.elementFromPoint(clientX, clientY);
+          var touchElement = element && (element.closest(".nestable-item-content") || element.closest(".nestable-list-empty"));
+          if (touchElement)
+            touchElement.dispatchEvent(_event);
+        }
+        return {
+          clientX,
+          clientY
+        };
+      },
+      onMouseMove: function onMouseMove(event) {
+        event && event.preventDefault();
+        var _this$getXandYFromEve = this.getXandYFromEvent(event), clientX = _this$getXandYFromEve.clientX, clientY = _this$getXandYFromEve.clientY;
+        if (this.mouse.last.x === 0) {
+          this.mouse.last.x = clientX;
+        }
+        var transformProps = getTransformProps(clientX, clientY);
+        var elDragLayer = document.querySelector(".nestable-" + this.group + " .nestable-drag-layer");
+        if (!elDragLayer)
+          return;
+        var _elDragLayer$getBound = elDragLayer.getBoundingClientRect(), dragLayerTop = _elDragLayer$getBound.top, dragLayerLeft = _elDragLayer$getBound.left;
+        var elCopy = document.querySelector(".nestable-" + this.group + " .nestable-drag-layer > .nestable-list");
+        if (!this.elCopyStyles) {
+          var offset = getOffsetRect(this.el);
+          this.elCopyStyles = _objectSpread2({
+            marginTop: "".concat(offset.top - clientY - dragLayerTop, "px"),
+            marginLeft: "".concat(offset.left - clientX - dragLayerLeft, "px")
+          }, transformProps);
+        } else {
+          this.elCopyStyles = _objectSpread2(_objectSpread2({}, this.elCopyStyles), transformProps);
+          if (elCopy) {
+            for (var key in transformProps) {
+              if (Object.prototype.hasOwnProperty.call(transformProps, key)) {
+                elCopy.style[key] = transformProps[key];
+              }
+            }
+          }
+          var diffX = this.rtl ? this.mouse.last.x - clientX : clientX - this.mouse.last.x;
+          if (diffX >= 0 && this.mouse.shift.x >= 0 || diffX <= 0 && this.mouse.shift.x <= 0) {
+            this.mouse.shift.x += diffX;
+          } else {
+            this.mouse.shift.x = 0;
+          }
+          this.mouse.last.x = clientX;
+          if (Math.abs(this.mouse.shift.x) > this.threshold) {
+            if (this.mouse.shift.x > 0) {
+              this.tryIncreaseDepth(this.dragItem);
+            } else {
+              this.tryDecreaseDepth(this.dragItem);
+            }
+            this.mouse.shift.x = 0;
+          }
+        }
+      },
+      moveItem: function moveItem(_ref) {
+        var dragItem = _ref.dragItem, pathFrom = _ref.pathFrom, pathTo = _ref.pathTo;
+        var realPathTo = this.getRealNextPath(pathFrom, pathTo);
+        var removePath = this.getSplicePath(pathFrom, {
+          numToRemove: 1,
+          childrenProp: this.childrenProp
+        });
+        var insertPath = this.getSplicePath(realPathTo, {
+          numToRemove: 0,
+          itemsToInsert: [dragItem],
+          childrenProp: this.childrenProp
+        });
+        if (!this.hook("beforeMove", {
+          dragItem,
+          pathFrom,
+          pathTo: realPathTo
+        }))
+          return;
+        var items = this.value;
+        items = update(items, removePath);
+        items = update(items, insertPath);
+        this.isDirty = true;
+        this.pathTo = realPathTo;
+        this.$emit("input", items);
+      },
+      tryIncreaseDepth: function tryIncreaseDepth(dragItem) {
+        var pathFrom = this.getPathById(dragItem[this.keyProp]);
+        var itemIndex = pathFrom[pathFrom.length - 1];
+        var newDepth = pathFrom.length + this.getItemDepth(dragItem);
+        if (itemIndex > 0 && newDepth <= this.maxDepth) {
+          var prevSibling = this.getItemByPath(pathFrom.slice(0, -1).concat(itemIndex - 1));
+          if (prevSibling[this.childrenProp] && (!prevSibling[this.childrenProp].length || !this.isCollapsed(prevSibling))) {
+            var pathTo = pathFrom.slice(0, -1).concat(itemIndex - 1).concat(prevSibling[this.childrenProp].length);
+            this.moveItem({
+              dragItem,
+              pathFrom,
+              pathTo
+            });
+          }
+        }
+      },
+      tryDecreaseDepth: function tryDecreaseDepth(dragItem) {
+        var pathFrom = this.getPathById(dragItem[this.keyProp]);
+        var itemIndex = pathFrom[pathFrom.length - 1];
+        if (pathFrom.length > 1) {
+          var parent = this.getItemByPath(pathFrom.slice(0, -1));
+          if (itemIndex + 1 === parent[this.childrenProp].length) {
+            var pathTo = pathFrom.slice(0, -1);
+            pathTo[pathTo.length - 1] += 1;
+            this.moveItem({
+              dragItem,
+              pathFrom,
+              pathTo
+            });
+          }
+        }
+      },
+      onMouseEnter: function onMouseEnter(event, eventList, item) {
+        if (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        var dragItem = this.dragItem;
+        if (!dragItem)
+          return;
+        if (item !== null && dragItem[this.keyProp] === item[this.keyProp])
+          return;
+        var pathFrom = this.getPathById(dragItem[this.keyProp]);
+        if (eventList !== this.listId && pathFrom.length === 0)
+          return;
+        var pathTo;
+        if (item === null) {
+          pathTo = pathFrom.length > 0 ? [] : [0];
+        } else {
+          pathTo = this.getPathById(item[this.keyProp]);
+        }
+        var newDepth = this.getRealNextPath(pathFrom, pathTo).length + (this.getItemDepth(dragItem) - 1);
+        if (newDepth > this.maxDepth) {
+          return;
+        }
+        var collapseProps = {};
+        if (this.collapsed && pathFrom.length > 1) {
+          var parent = this.getItemByPath(pathFrom.slice(0, -1));
+          if (parent[this.childrenProp].length === 1) {
+            collapseProps = this.onToggleCollapse(parent, true);
+          }
+        }
+        this.moveItem({
+          dragItem,
+          pathFrom,
+          pathTo
+        }, collapseProps);
+      },
+      isCollapsed: function isCollapsed(item) {
+        return !!(this.collapsedGroups.indexOf(item[this.keyProp]) > -1 ^ this.collapsed);
+      },
+      dragApply: function dragApply() {
+        this.$emit("change", this.dragItem, {
+          items: this.value,
+          pathTo: this.pathTo
+        });
+        this.pathTo = null;
+        this.itemsOld = null;
+        this.dragItem = null;
+        this.isDirty = false;
+      },
+      dragRevert: function dragRevert() {
+        this.$emit("input", this.itemsOld);
+        this.pathTo = null;
+        this.itemsOld = null;
+        this.dragItem = null;
+        this.isDirty = false;
+      }
+    }
+  };
+  var __vue_script__$2 = script$2;
+  var __vue_render__$2 = function __vue_render__2() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("div", {
+      class: ["nestable", "nestable-" + _vm.group, _vm.rtl ? "nestable-rtl" : ""]
+    }, [_c("ol", {
+      staticClass: "nestable-list nestable-group"
+    }, [_vm.listIsEmpty ? _c("Placeholder", {
+      attrs: {
+        "options": _vm.itemOptions
+      }
+    }, [_vm._t("placeholder", [_vm._v("\n        No content\n      ")])], 2) : _vm._e(), _vm._v(" "), _vm._l(_vm.value, function(item, index2) {
+      return [_c("NestableItem", {
+        key: item[_vm.keyProp],
+        attrs: {
+          "index": index2,
+          "item": item,
+          "options": _vm.itemOptions
+        },
+        scopedSlots: _vm._u([_vm._l(Object.keys(_vm.$scopedSlots), function(slot) {
+          return {
+            key: slot,
+            fn: function fn(scope) {
+              return [_vm._t(slot, null, null, scope)];
+            }
+          };
+        })], null, true)
+      })];
+    })], 2), _vm._v(" "), _vm.dragItem ? [_c("div", {
+      staticClass: "nestable-drag-layer"
+    }, [_c("ol", {
+      staticClass: "nestable-list",
+      style: _vm.listStyles
+    }, [_c("NestableItem", {
+      attrs: {
+        "item": _vm.dragItem,
+        "options": _vm.itemOptions,
+        "is-copy": true
+      },
+      scopedSlots: _vm._u([_vm._l(Object.keys(_vm.$scopedSlots), function(slot) {
+        return {
+          key: slot,
+          fn: function fn(scope) {
+            return [_vm._t(slot, null, null, scope)];
+          }
+        };
+      })], null, true)
+    })], 1)])] : _vm._e()], 2);
+  };
+  var __vue_staticRenderFns__$2 = [];
+  var __vue_inject_styles__$2 = void 0;
+  var __vue_scope_id__$2 = void 0;
+  var __vue_module_identifier__$2 = void 0;
+  var __vue_is_functional_template__$2 = false;
+  var __vue_component__$2 = /* @__PURE__ */ normalizeComponent$1({
+    render: __vue_render__$2,
+    staticRenderFns: __vue_staticRenderFns__$2
+  }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, void 0, void 0, void 0);
+  var script$3 = {
+    name: "VueNestableHandle",
+    mixins: [groupsObserver],
+    props: {
+      item: {
+        type: Object,
+        required: false,
+        default: function _default() {
+          return {};
+        }
+      }
+    },
+    inject: ["group", "onDragEnd"],
+    methods: {
+      dragstart: function dragstart(event) {
+        var item = this.item || this.$parent.item;
+        this.notifyDragStart(this.group, event, item);
+      },
+      touchend: function touchend(event) {
+        this.onDragEnd(event);
+      },
+      touchmove: function touchmove(event) {
+        this.notifyMouseMove(this.group, event);
+      }
+    }
+  };
+  var __vue_script__$3 = script$3;
+  var __vue_render__$3 = function __vue_render__2() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("div", {
+      staticClass: "nestable-handle",
+      attrs: {
+        "draggable": ""
+      },
+      on: {
+        "dragstart": _vm.dragstart,
+        "touchstart": _vm.dragstart,
+        "touchend": _vm.touchend,
+        "touchmove": _vm.touchmove
+      }
+    }, [_vm._t("default")], 2);
+  };
+  var __vue_staticRenderFns__$3 = [];
+  var __vue_inject_styles__$3 = void 0;
+  var __vue_scope_id__$3 = void 0;
+  var __vue_module_identifier__$3 = void 0;
+  var __vue_is_functional_template__$3 = false;
+  var __vue_component__$3 = /* @__PURE__ */ normalizeComponent$1({
+    render: __vue_render__$3,
+    staticRenderFns: __vue_staticRenderFns__$3
+  }, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, false, void 0, void 0, void 0);
+  var index = {
+    install: function install(Vue, options) {
+      Vue.component("VueNestable", __vue_component__$2);
+      Vue.component("VueNestableHandle", __vue_component__$3);
+    }
+  };
+  var render$1 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("article", { staticClass: "k-tiller-item" }, [_c("div", { staticClass: "k-item-cardlet" }, [_c("div", { staticClass: "k-item-handle" }, [_c("vue-nestable-handle", { attrs: { "item": _vm.item } }, [_c("svg", { staticClass: "k-handle-icon", attrs: { "viewBox": "0 0 256 512", "xmlns": "http://www.w3.org/2000/svg" } }, [_c("path", { attrs: { "d": "M32 96C32 78.33 46.33 64 64 64C81.67 64 96 78.33 96 96C96 113.7 81.67 128 64 128C46.33 128 32 113.7 32 96zM32 256C32 238.3 46.33 224 64 224C81.67 224 96 238.3 96 256C96 273.7 81.67 288 64 288C46.33 288 32 273.7 32 256zM96 416C96 433.7 81.67 448 64 448C46.33 448 32 433.7 32 416C32 398.3 46.33 384 64 384C81.67 384 96 398.3 96 416zM160 96C160 78.33 174.3 64 192 64C209.7 64 224 78.33 224 96C224 113.7 209.7 128 192 128C174.3 128 160 113.7 160 96zM224 256C224 273.7 209.7 288 192 288C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224C209.7 224 224 238.3 224 256zM160 416C160 398.3 174.3 384 192 384C209.7 384 224 398.3 224 416C224 433.7 209.7 448 192 448C174.3 448 160 433.7 160 416z" } })])])], 1), _c("div", { staticClass: "k-item-content" }, [_c("div", { staticClass: "k-content-display", on: { "click": _vm.action_edit } }, [_vm.item.image ? _c("k-item-image", { attrs: { "width": "38px", "image": Object.assign(
+      {},
+      _vm.item.image,
+      {
+        cover: true,
+        ratio: "2/2"
+      }
+    ) } }) : _vm._e()], 1), _c("div", { staticClass: "k-content-meta", on: { "click": _vm.action_edit } }, [_c("div", { staticClass: "k-meta-title" }, [_vm._v(" " + _vm._s(_vm.item.title) + " "), _vm.item.children.length > 0 ? _c("span", { staticClass: "k-title-suffix" }, [_vm._v(" (" + _vm._s(_vm.item.children.length) + " " + _vm._s(_vm.item.children.length > 1 ? "subpages" : "subpage") + ") ")]) : _vm._e()])]), _c("div", { staticClass: "k-content-action" }, [_c("k-dropdown", { staticClass: "k-item-menu" }, [_c("k-button", { attrs: { "icon": "dots" }, on: { "click": _vm.action_tiller } }), _c("k-dropdown-content", { ref: "dialog_tiller", attrs: { "align": "right" } }, [_c("k-dropdown-item", { on: { "click": function($event) {
+      return _vm.action_pages(_vm.item);
+    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "page" } }), _c("span", [_vm._v(" Add Pages ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add pages from the kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", { on: { "click": function($event) {
+      return _vm.action_files(_vm.item);
+    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "file" } }), _c("span", [_vm._v(" Add Files ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add files from the kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", { on: { "click": function($event) {
+      return _vm.action_pages(_vm.item);
+    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "bolt" } }), _c("span", [_vm._v(" Add Custom ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add a custom link not from the kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", [_c("div", { staticClass: "k-menu-divider" })]), _c("k-dropdown-item", { on: { "click": _vm.action_edit } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "edit" } }), _c("span", [_vm._v(" Edit Item ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Edit custom fields for this menu item ")])]), _c("k-dropdown-item", { on: { "click": _vm.action_dialog } }, [_c("div", { staticClass: "k-menu-title k-menu-negative" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "trash" } }), _c("span", [_vm._v(" Remove Item ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Remove this item from the menu ")])])], 1)], 1)], 1)])]), _c("k-drawer", { ref: "drawer_edit", attrs: { "icon": "bolt", "title": "Edit " + _vm.item.title } }, [_c("k-form", { attrs: { "fields": Object.assign({}, this.fieldsets) }, model: { value: _vm.item.fields, callback: function($$v) {
+      _vm.$set(_vm.item, "fields", $$v);
+    }, expression: "item.fields" } })], 1), _c("k-pages-dialog", { ref: "dialog_pages", on: { "submit": _vm.action_kirby } }), _c("k-files-dialog", { ref: "dialog_files", on: { "submit": _vm.action_kirby } }), _c("k-dialog", { ref: "dialog_remove", attrs: { "icon": "trash", "theme": "negative", "submitButton": "Remove" }, on: { "submit": _vm.action_remove } }, [_c("k-text", [_vm._v(" Do you really want to remove "), _c("strong", [_vm._v(_vm._s(_vm.item.title))]), _vm._v("? "), _vm.item.children.length ? _c("div", [_vm._v(" It has the following child menu items: "), _c("br"), _c("br"), _vm._l(_vm.action_flattened(_vm.item.children), function(children, index2) {
+      return _c("span", [_vm._v(" " + _vm._s(children.title)), _c("br")]);
+    })], 2) : _vm._e()])], 1)], 1);
+  };
+  var staticRenderFns$1 = [];
+  render$1._withStripped = true;
+  var tiller_vue_vue_type_style_index_0_scoped_true_lang = "";
+  function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
+    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    if (render2) {
+      options.render = render2;
+      options.staticRenderFns = staticRenderFns2;
+      options._compiled = true;
+    }
+    if (functionalTemplate) {
+      options.functional = true;
+    }
+    if (scopeId) {
+      options._scopeId = "data-v-" + scopeId;
+    }
+    var hook;
+    if (moduleIdentifier) {
+      hook = function(context) {
+        context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
+        if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
+          context = __VUE_SSR_CONTEXT__;
+        }
+        if (injectStyles) {
+          injectStyles.call(this, context);
+        }
+        if (context && context._registeredComponents) {
+          context._registeredComponents.add(moduleIdentifier);
+        }
+      };
+      options._ssrRegister = hook;
+    } else if (injectStyles) {
+      hook = shadowMode ? function() {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        );
+      } : injectStyles;
+    }
+    if (hook) {
+      if (options.functional) {
+        options._injectStyles = hook;
+        var originalRender = options.render;
+        options.render = function renderWithStyleInjection(h, context) {
+          hook.call(context);
+          return originalRender(h, context);
+        };
+      } else {
+        var existing = options.beforeCreate;
+        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+      }
+    }
+    return {
+      exports: scriptExports,
+      options
+    };
+  }
+  const __vue2_script$1 = {
+    name: "tiller",
+    props: {
+      list: {
+        type: Array,
+        required: true
+      },
+      item: {
+        type: Object,
+        required: true
+      },
+      index: {
+        type: Number,
+        required: true
+      },
+      fields: {
+        type: Object,
+        required: true
+      },
+      fieldsets: {
+        type: Object,
+        required: false
+      },
+      pages: {
+        type: Object,
+        required: true
+      },
+      files: {
+        type: Object,
+        required: true
+      },
+      endpoints: {
+        type: Object,
+        required: true
+      }
+    },
+    methods: {
+      action_edit() {
+        this.$refs.drawer_edit.open();
+      },
+      action_tiller() {
+        this.$refs.dialog_tiller.open();
+      },
+      action_dialog(data) {
+        this.$refs.dialog_remove.open();
+      },
+      action_close() {
+        this.$refs.dialog_remove.close();
+      },
+      action_pages(data) {
+        this.$refs.dialog_pages.open({
+          multiple: true,
+          search: this.pages.search,
+          endpoint: this.endpoints.field + "/pages",
+          selected: this.pages.selected.map((model) => model.id)
+        });
+      },
+      action_files() {
+        this.$refs.dialog_files.open({
+          multiple: true,
+          search: this.files.search,
+          endpoint: this.endpoints.field + "/files",
+          selected: this.files.selected.map((model) => model.id)
+        });
+      },
+      action_kirby(data) {
+        data.map((item) => {
+          this.item.children.push({
+            id: this.$helper.string.random(16),
+            uuid: item.uuid,
+            link: item.link,
+            title: item.text,
+            url: item.url,
+            image: item.image,
+            fields: this.fieldsets,
+            children: []
+          });
+        });
+      },
+      action_remove() {
+        this.$emit("action_remove", {
+          haystack: this.list,
+          needle: this.item.id
+        });
+        this.action_close();
+      },
+      action_flattened(data) {
+        let children = [];
+        return data.map((page) => {
+          if (page.children && page.children.length) {
+            children.push([...children, ...page.children]);
+          }
+          return page;
+        }).concat(children.length ? this.action_flattened(children) : children);
+      }
+    }
+  };
+  const __cssModules$1 = {};
+  var __component__$1 = /* @__PURE__ */ normalizeComponent(
+    __vue2_script$1,
+    render$1,
+    staticRenderFns$1,
+    false,
+    __vue2_injectStyles$1,
+    "6525219c",
+    null,
+    null
+  );
+  function __vue2_injectStyles$1(context) {
+    for (let o in __cssModules$1) {
+      this[o] = __cssModules$1[o];
+    }
+  }
+  __component__$1.options.__file = "src/components/tiller.vue";
+  var tiller = /* @__PURE__ */ function() {
+    return __component__$1.exports;
+  }();
+  var render = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("k-field", { staticClass: "k-form-field k-tiller-field", attrs: { "help": _vm.help, "label": _vm.label, "value": _vm.value, "disabled": _vm.disabled, "required": _vm.required }, scopedSlots: _vm._u([{ key: "options", fn: function() {
+      return [_c("k-dropdown", { staticClass: "k-tiller-menu" }, [_c("k-button", { attrs: { "icon": "dots" }, on: { "click": _vm.action_tiller } }), _c("k-dropdown-content", { ref: "dialog_tiller", attrs: { "align": "right" } }, [_c("k-dropdown-item", { on: { "click": _vm.action_pages } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "page" } }), _c("span", [_vm._v(" Add Pages ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add pages from the kirby file system ")])]), _c("k-dropdown-item", { on: { "click": _vm.action_files } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "file" } }), _c("span", [_vm._v(" Add Files ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add files from the kirby file system ")])]), _c("k-dropdown-item", { on: { "click": _vm.action_custom } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "bolt" } }), _c("span", [_vm._v(" Add Custom ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add a custom link not from the kirby file system ")])])], 1)], 1)];
+    }, proxy: true }]) }, [_c("vue-nestable", { attrs: { "keyProp": "id", "childrenProp": "children" }, scopedSlots: _vm._u([{ key: "default", fn: function(ref) {
+      var item = ref.item;
+      var index2 = ref.index;
+      return [_c("tiller", { key: index2, attrs: { "item": item, "list": _vm.list, "index": index2, "pages": _vm.pages, "files": _vm.files, "fields": _vm.fields, "fieldsets": _vm.fieldsets, "endpoints": _vm.endpoints }, on: { "action_remove": _vm.action_remove }, scopedSlots: _vm._u([{ key: "handle", fn: function() {
+        return [_c("vue-nestable-handle", { attrs: { "item": item } }, [_c("svg", { attrs: { "viewBox": "0 0 256 512", "xmlns": "http://www.w3.org/2000/svg" } }, [_c("path", { attrs: { "d": "M32 96C32 78.33 46.33 64 64 64C81.67 64 96 78.33 96 96C96 113.7 81.67 128 64 128C46.33 128 32 113.7 32 96zM32 256C32 238.3 46.33 224 64 224C81.67 224 96 238.3 96 256C96 273.7 81.67 288 64 288C46.33 288 32 273.7 32 256zM96 416C96 433.7 81.67 448 64 448C46.33 448 32 433.7 32 416C32 398.3 46.33 384 64 384C81.67 384 96 398.3 96 416zM160 96C160 78.33 174.3 64 192 64C209.7 64 224 78.33 224 96C224 113.7 209.7 128 192 128C174.3 128 160 113.7 160 96zM224 256C224 273.7 209.7 288 192 288C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224C209.7 224 224 238.3 224 256zM160 416C160 398.3 174.3 384 192 384C209.7 384 224 398.3 224 416C224 433.7 209.7 448 192 448C174.3 448 160 433.7 160 416z" } })])])];
+      }, proxy: true }], null, true) })];
+    } }]), model: { value: _vm.list, callback: function($$v) {
+      _vm.list = $$v;
+    }, expression: "list" } }, [_c("k-empty", { attrs: { "slot": "placeholder", "icon": "bolt" }, on: { "click": _vm.action_tiller }, slot: "placeholder" }, [_vm._v(" No menu items ")])], 1), _c("k-pages-dialog", { ref: "dialog_pages", on: { "submit": _vm.action_kirby } }), _c("k-files-dialog", { ref: "dialog_files", on: { "submit": _vm.action_kirby } })], 1);
+  };
+  var staticRenderFns = [];
+  render._withStripped = true;
+  var field_vue_vue_type_style_index_0_lang = "";
+  const __vue2_script = {
+    props: {
+      value: {
+        type: Array,
+        required: true
+      },
+      label: {
+        type: String,
+        required: true
+      },
+      disabled: {
+        type: Boolean,
+        required: false
+      },
+      required: {
+        type: Boolean,
+        required: false
+      },
+      endpoints: {
+        type: Object,
+        required: true
+      },
+      fields: {
+        type: Object,
+        required: false
+      },
+      fieldsets: {
+        type: Object,
+        required: false
+      },
+      pages: {
+        type: Object,
+        required: true
+      },
+      files: {
+        type: Object,
+        required: true
+      }
+    },
+    components: {
+      tiller
+    },
+    data() {
+      return {
+        list: this.value
+      };
+    },
+    watch: {
+      list: {
+        handler(newVal, oldVal) {
+          this.value = this.list;
+          this.$emit("input", this.value);
+        },
+        deep: true
+      }
+    },
+    methods: {
+      action_tiller() {
+        this.$refs.dialog_tiller.open({
+          state: true
+        });
+      },
+      action_custom() {
+        this.$refs.dialog_custom.open({
+          state: true
+        });
+      },
+      action_pages() {
+        this.$refs.dialog_pages.open({
+          multiple: true,
+          search: this.pages.search,
+          endpoint: this.endpoints.field + "/pages",
+          selected: this.pages.selected.map((model) => model.id)
+        });
+      },
+      action_files() {
+        this.$refs.dialog_files.open({
+          multiple: true,
+          search: this.files.search,
+          endpoint: this.endpoints.field + "/files",
+          selected: this.files.selected.map((model) => model.id)
+        });
+      },
+      action_kirby(data) {
+        data.map((item) => {
+          this.list.push({
+            id: this.$helper.string.random(16),
+            uuid: item.uuid,
+            link: item.link,
+            title: item.text,
+            url: item.url,
+            image: item.image,
+            fields: this.fields,
+            children: []
+          });
+        });
+      },
+      action_remove(data) {
+        return this.list = data.haystack.filter((item) => item.id !== data.needle).map((item) => {
+          if (item.children && item.children.length) {
+            item.children = this.action_remove({
+              haystack: item.children,
+              needle: data.needle
+            });
+          }
+          return item;
+        });
+      }
+    }
+  };
+  const __cssModules = {};
+  var __component__ = /* @__PURE__ */ normalizeComponent(
+    __vue2_script,
+    render,
+    staticRenderFns,
+    false,
+    __vue2_injectStyles,
+    null,
+    null,
+    null
+  );
+  function __vue2_injectStyles(context) {
+    for (let o in __cssModules) {
+      this[o] = __cssModules[o];
+    }
+  }
+  __component__.options.__file = "src/field.vue";
+  var field = /* @__PURE__ */ function() {
+    return __component__.exports;
+  }();
+  panel.plugin("beluga/tiller", {
+    fields: {
+      tiller: field
+    },
+    use: {
+      nestable: index,
+      plugin(Vue) {
+        if (window && window.__VUE_DEVTOOLS_GLOBAL_HOOK__) {
+          window.__VUE_DEVTOOLS_GLOBAL_HOOK__.Vue = Vue;
+        }
+      }
+    }
+  });
+})();
