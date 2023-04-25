@@ -1509,7 +1509,7 @@
       }, proxy: true }], null, true) })];
     } }]), model: { value: _vm.list, callback: function($$v) {
       _vm.list = $$v;
-    }, expression: "list" } }, [_c("k-empty", { attrs: { "slot": "placeholder", "icon": "bolt" }, on: { "click": _vm.action_tiller }, slot: "placeholder" }, [_vm._v(" No menu items ")])], 1), _c("k-pages-dialog", { ref: "dialog_pages", on: { "submit": _vm.action_kirby } }), _c("k-files-dialog", { ref: "dialog_files", on: { "submit": _vm.action_kirby } })], 1);
+    }, expression: "list" } }, [_c("k-empty", { attrs: { "slot": "placeholder", "icon": "bolt" }, on: { "click": _vm.action_tiller }, slot: "placeholder" }, [_vm._v(" No menu items ")])], 1), _c("k-pages-dialog", { ref: "dialog_pages", on: { "submit": _vm.action_kirby } }), _c("k-files-dialog", { ref: "dialog_files", on: { "submit": _vm.action_kirby } }), _c("k-form-dialog", { ref: "dialog_custom", on: { "submit": _vm.action_kirby } })], 1);
   };
   var staticRenderFns = [];
   render._withStripped = true;

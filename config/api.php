@@ -3,13 +3,6 @@
 	return function () {
 		return [
 			[
-				'pattern' => '/validate',
-				'method'  => 'ALL',
-				'action'  => function () {
-					return array_values($this->field()->formMethod($this->requestBody())->errors());
-				}
-			],
-			[
 				'pattern' => '/pages',
 				'method' => 'GET',
 				'action' => function () {
@@ -31,6 +24,13 @@
 					]);
 					return $this->field()->filepicker($data);
 				}
-			]
+			],
+			[
+				'pattern' => '/validate',
+				'method'  => 'ALL',
+				'action'  => function () {
+					return array_values($this->field()->formMethod($this->requestBody())->errors());
+				}
+			],
 		];
 	};

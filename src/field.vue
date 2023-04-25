@@ -119,6 +119,10 @@
             ref="dialog_files"
             v-on:submit="action_kirby">
         </k-files-dialog>
+        <k-form-dialog
+            ref="dialog_custom"
+            v-on:submit="action_kirby">
+        </k-form-dialog>
     </k-field>
 
 </template>
