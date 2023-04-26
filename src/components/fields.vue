@@ -22,7 +22,7 @@
                 class="k-item-content">
                 <div
                     class="k-content-display"
-                    v-on:click="action_edit">
+                    v-on:click="$refs.edit.open()">
                     <k-item-image
                         v-if="item.image"
                         width="38px"
@@ -35,7 +35,7 @@
                 </div>
                 <div
                     class="k-content-meta"
-                    v-on:click="action_edit">
+                    v-on:click="$refs.edit.open()">
                     <div
                         class="k-meta-title">
                         {{ item.title }}
@@ -52,13 +52,18 @@
                         class="k-item-menu">
                         <k-button
                             icon="dots"
-                            v-on:click="action_tiller">
+                            v-on:click="$refs.menu.open()">
                         </k-button>
                         <k-dropdown-content
-                            ref="dialog_tiller"
+                            ref="menu"
                             align="right">
                             <k-dropdown-item
-                                v-on:click="action_pages(item)">
+                                v-on:click="$refs.pages.open({
+                                    multiple: true,
+                                    search: pages.search,
+                                    endpoint: endpoints.field + '/pages',
+                                    selected: pages.selected.map((model) => model.id)
+                                })">
                                 <div
                                     class="k-menu-title">
                                     <k-icon
@@ -71,11 +76,16 @@
                                 </div>
                                 <p
                                     class="k-menu-text">
-                                    Add pages from the kirby file system as a child to {{ item.title }}
+                                    Add pages from the Kirby file system as a child to {{ item.title }}
                                 </p>
                             </k-dropdown-item>
                             <k-dropdown-item
-                                v-on:click="action_files(item)">
+                                v-on:click="$refs.files.open({
+                                    multiple: true,
+                                    search: files.search,
+                                    endpoint: endpoints.field + '/files',
+                                    selected: files.selected.map((model) => model.id)
+                                })">
                                 <div
                                     class="k-menu-title">
                                     <k-icon
@@ -88,11 +98,10 @@
                                 </div>
                                 <p
                                     class="k-menu-text">
-                                    Add files from the kirby file system as a child to {{ item.title }}
+                                    Add files from the Kirby file system as a child to {{ item.title }}
                                 </p>
                             </k-dropdown-item>
-                            <k-dropdown-item
-                                v-on:click="action_pages(item)">
+                            <k-dropdown-item>
                                 <div
                                     class="k-menu-title">
                                     <k-icon
@@ -105,7 +114,7 @@
                                 </div>
                                 <p
                                     class="k-menu-text">
-                                    Add a custom link not from the kirby file system as a child to {{ item.title }}
+                                    Add a custom link not from the Kirby file system as a child to {{ item.title }}
                                 </p>
                             </k-dropdown-item>
                             <k-dropdown-item>
@@ -114,7 +123,7 @@
                                 </div>
                             </k-dropdown-item>
                             <k-dropdown-item
-                                v-on:click="action_edit">
+                                v-on:click="$refs.edit.open()">
                                 <div
                                     class="k-menu-title">
                                     <k-icon
@@ -122,16 +131,16 @@
                                         class="k-menu-icon">
                                     </k-icon>
                                     <span>
-                                        Edit Item
+                                        Edit
                                     </span>
                                 </div>
                                 <p
                                     class="k-menu-text">
-                                    Edit custom fields for this menu item
+                                    Edit custom fields for {{ item.title }}
                                 </p>
                             </k-dropdown-item>
                             <k-dropdown-item
-                                v-on:click="action_dialog">
+                                v-on:click="$refs.remove.open()">
                                 <div
                                     class="k-menu-title k-menu-negative">
                                     <k-icon
@@ -139,12 +148,12 @@
                                         class="k-menu-icon">
                                     </k-icon>
                                     <span>
-                                        Remove Item
+                                        Remove
                                     </span>
                                 </div>
                                 <p
                                     class="k-menu-text">
-                                    Remove this item from the menu
+                                    Remove {{ item.title }} from the menu
                                 </p>
                             </k-dropdown-item>
                         </k-dropdown-content>
@@ -154,39 +163,31 @@
         </div>
         <k-drawer
             icon="bolt"
-            ref="drawer_edit"
+            ref="edit"
             v-bind:title="'Edit ' + item.title">
             <k-form 
                 v-model="item.fields" 
                 v-bind:fields="{ ...this.fieldsets }">
             </k-form>
         </k-drawer>
-        <k-pages-dialog
-            ref="dialog_pages"
-            v-on:submit="action_kirby">
-        </k-pages-dialog>
-        <k-files-dialog
-            ref="dialog_files"
-            v-on:submit="action_kirby">
-        </k-files-dialog>
         <k-dialog
+            ref="remove"
             icon="trash"
             theme="negative"
-            ref="dialog_remove"
             submitButton="Remove"
-            v-on:submit="action_remove">
+            v-on:submit="remove">
             <k-text>
                 Do you really want to remove <strong>{{ item.title }}</strong>?
-                <div 
-                    v-if="item.children.length">
-                    It has the following child menu items: <br /><br />
-                    <span
-                        v-for="(children, index) in action_flattened(item.children)">
-                        {{ children.title }}<br />
-                    </span>
-                </div>
             </k-text>
         </k-dialog>
+        <k-pages-dialog
+            ref="pages"
+            v-on:submit="add">
+        </k-pages-dialog>
+        <k-files-dialog
+            ref="files"
+            v-on:submit="add">
+        </k-files-dialog>
     </article>
 
 </template>
@@ -194,7 +195,7 @@
 <script>
 
     export default {
-        name: 'tiller',
+        name: 'fields',
         props: {
             list: {
                 type: Array,
@@ -230,65 +231,19 @@
             },
         },
         methods: {
-            action_edit() {
-                this.$refs.drawer_edit.open()
-            },
-            action_tiller() {
-                this.$refs.dialog_tiller.open()
-            },
-            action_dialog(data) {
-                this.$refs.dialog_remove.open()
-            },
-            action_close() {
-                this.$refs.dialog_remove.close()
-            },
-            action_pages(data) {
-                this.$refs.dialog_pages.open({
-                    multiple: true,
-                    search: this.pages.search,
-                    endpoint: this.endpoints.field + '/pages',
-                    selected: this.pages.selected.map((model) => model.id)
+            add(data) {
+                this.$emit('add', { 
+                    item: data, 
+                    children: this.item.children 
                 })
             },
-            action_files() {
-                this.$refs.dialog_files.open({
-                    multiple: true,
-                    search: this.files.search,
-                    endpoint: this.endpoints.field + '/files',
-                    selected: this.files.selected.map((model) => model.id)
+            remove() {
+                this.$emit('remove', {
+                    item: this.item.id,
+                    children: this.list
                 })
-            },
-            action_kirby(data) {
-                data.map((item) => {
-                    this.item.children.push({
-                        id: this.$helper.string.random(16),
-                        uuid: item.uuid,
-                        link: item.link,
-                        title: item.text,
-                        url: item.url,
-                        image: item.image,
-                        fields: this.fieldsets,
-                        children: [],
-                    })
-                })
-            },
-            action_remove() {
-                this.$emit('action_remove', {
-                    haystack: this.list,
-                    needle: this.item.id
-                })
-                this.action_close()
-            },
-            action_flattened(data) {
-                let children = []
-                return data.map(page => {
-                    if (page.children && page.children.length) {
-                        children.push([...children, ...page.children])
-                    }
-                    return page
-                }).concat(children.length ? this.action_flattened(children) : children)
             }
-        },
+        }
     }
 
 </script>

@@ -6,17 +6,17 @@
       createInjector = shadowMode;
       shadowMode = false;
     }
-    const options = typeof script2 === "function" ? script2.options : script2;
+    const options2 = typeof script2 === "function" ? script2.options : script2;
     if (template && template.render) {
-      options.render = template.render;
-      options.staticRenderFns = template.staticRenderFns;
-      options._compiled = true;
+      options2.render = template.render;
+      options2.staticRenderFns = template.staticRenderFns;
+      options2._compiled = true;
       if (isFunctionalTemplate) {
-        options.functional = true;
+        options2.functional = true;
       }
     }
     if (scopeId) {
-      options._scopeId = scopeId;
+      options2._scopeId = scopeId;
     }
     let hook;
     if (moduleIdentifier) {
@@ -32,7 +32,7 @@
           context._registeredComponents.add(moduleIdentifier);
         }
       };
-      options._ssrRegister = hook;
+      options2._ssrRegister = hook;
     } else if (style) {
       hook = shadowMode ? function(context) {
         style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
@@ -41,15 +41,15 @@
       };
     }
     if (hook) {
-      if (options.functional) {
-        const originalRender = options.render;
-        options.render = function renderWithStyleInjection(h, context) {
+      if (options2.functional) {
+        const originalRender = options2.render;
+        options2.render = function renderWithStyleInjection(h, context) {
           hook.call(context);
           return originalRender(h, context);
         };
       } else {
-        const existing = options.beforeCreate;
-        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+        const existing = options2.beforeCreate;
+        options2.beforeCreate = existing ? [].concat(existing, hook) : [hook];
       }
     }
     return script2;
@@ -759,10 +759,10 @@
         return level;
       },
       getSplicePath: function getSplicePath(path) {
-        var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
+        var options2 = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
         var splicePath = {};
-        var numToRemove = options.numToRemove || 0;
-        var itemsToInsert = options.itemsToInsert || [];
+        var numToRemove = options2.numToRemove || 0;
+        var itemsToInsert = options2.itemsToInsert || [];
         var lastIndex = path.length - 1;
         var currentPath = splicePath;
         path.forEach(function(index2, i) {
@@ -770,7 +770,7 @@
             currentPath.$splice = [[index2, numToRemove].concat(_toConsumableArray(itemsToInsert))];
           } else {
             var nextPath = {};
-            currentPath[index2] = _defineProperty({}, options.childrenProp, nextPath);
+            currentPath[index2] = _defineProperty({}, options2.childrenProp, nextPath);
             currentPath = nextPath;
           }
         });
@@ -1293,49 +1293,69 @@
     staticRenderFns: __vue_staticRenderFns__$3
   }, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, false, void 0, void 0, void 0);
   var index = {
-    install: function install(Vue, options) {
+    install: function install(Vue, options2) {
       Vue.component("VueNestable", __vue_component__$2);
       Vue.component("VueNestableHandle", __vue_component__$3);
     }
   };
-  var render$1 = function() {
+  var render$2 = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
-    return _c("article", { staticClass: "k-tiller-item" }, [_c("div", { staticClass: "k-item-cardlet" }, [_c("div", { staticClass: "k-item-handle" }, [_c("vue-nestable-handle", { attrs: { "item": _vm.item } }, [_c("svg", { staticClass: "k-handle-icon", attrs: { "viewBox": "0 0 256 512", "xmlns": "http://www.w3.org/2000/svg" } }, [_c("path", { attrs: { "d": "M32 96C32 78.33 46.33 64 64 64C81.67 64 96 78.33 96 96C96 113.7 81.67 128 64 128C46.33 128 32 113.7 32 96zM32 256C32 238.3 46.33 224 64 224C81.67 224 96 238.3 96 256C96 273.7 81.67 288 64 288C46.33 288 32 273.7 32 256zM96 416C96 433.7 81.67 448 64 448C46.33 448 32 433.7 32 416C32 398.3 46.33 384 64 384C81.67 384 96 398.3 96 416zM160 96C160 78.33 174.3 64 192 64C209.7 64 224 78.33 224 96C224 113.7 209.7 128 192 128C174.3 128 160 113.7 160 96zM224 256C224 273.7 209.7 288 192 288C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224C209.7 224 224 238.3 224 256zM160 416C160 398.3 174.3 384 192 384C209.7 384 224 398.3 224 416C224 433.7 209.7 448 192 448C174.3 448 160 433.7 160 416z" } })])])], 1), _c("div", { staticClass: "k-item-content" }, [_c("div", { staticClass: "k-content-display", on: { "click": _vm.action_edit } }, [_vm.item.image ? _c("k-item-image", { attrs: { "width": "38px", "image": Object.assign(
+    return _c("article", { staticClass: "k-tiller-item" }, [_c("div", { staticClass: "k-item-cardlet" }, [_c("div", { staticClass: "k-item-handle" }, [_c("vue-nestable-handle", { attrs: { "item": _vm.item } }, [_c("svg", { staticClass: "k-handle-icon", attrs: { "viewBox": "0 0 256 512", "xmlns": "http://www.w3.org/2000/svg" } }, [_c("path", { attrs: { "d": "M32 96C32 78.33 46.33 64 64 64C81.67 64 96 78.33 96 96C96 113.7 81.67 128 64 128C46.33 128 32 113.7 32 96zM32 256C32 238.3 46.33 224 64 224C81.67 224 96 238.3 96 256C96 273.7 81.67 288 64 288C46.33 288 32 273.7 32 256zM96 416C96 433.7 81.67 448 64 448C46.33 448 32 433.7 32 416C32 398.3 46.33 384 64 384C81.67 384 96 398.3 96 416zM160 96C160 78.33 174.3 64 192 64C209.7 64 224 78.33 224 96C224 113.7 209.7 128 192 128C174.3 128 160 113.7 160 96zM224 256C224 273.7 209.7 288 192 288C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224C209.7 224 224 238.3 224 256zM160 416C160 398.3 174.3 384 192 384C209.7 384 224 398.3 224 416C224 433.7 209.7 448 192 448C174.3 448 160 433.7 160 416z" } })])])], 1), _c("div", { staticClass: "k-item-content" }, [_c("div", { staticClass: "k-content-display", on: { "click": function($event) {
+      return _vm.$refs.edit.open();
+    } } }, [_vm.item.image ? _c("k-item-image", { attrs: { "width": "38px", "image": Object.assign(
       {},
       _vm.item.image,
       {
         cover: true,
         ratio: "2/2"
       }
-    ) } }) : _vm._e()], 1), _c("div", { staticClass: "k-content-meta", on: { "click": _vm.action_edit } }, [_c("div", { staticClass: "k-meta-title" }, [_vm._v(" " + _vm._s(_vm.item.title) + " "), _vm.item.children.length > 0 ? _c("span", { staticClass: "k-title-suffix" }, [_vm._v(" (" + _vm._s(_vm.item.children.length) + " " + _vm._s(_vm.item.children.length > 1 ? "subpages" : "subpage") + ") ")]) : _vm._e()])]), _c("div", { staticClass: "k-content-action" }, [_c("k-dropdown", { staticClass: "k-item-menu" }, [_c("k-button", { attrs: { "icon": "dots" }, on: { "click": _vm.action_tiller } }), _c("k-dropdown-content", { ref: "dialog_tiller", attrs: { "align": "right" } }, [_c("k-dropdown-item", { on: { "click": function($event) {
-      return _vm.action_pages(_vm.item);
-    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "page" } }), _c("span", [_vm._v(" Add Pages ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add pages from the kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", { on: { "click": function($event) {
-      return _vm.action_files(_vm.item);
-    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "file" } }), _c("span", [_vm._v(" Add Files ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add files from the kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", { on: { "click": function($event) {
-      return _vm.action_pages(_vm.item);
-    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "bolt" } }), _c("span", [_vm._v(" Add Custom ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add a custom link not from the kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", [_c("div", { staticClass: "k-menu-divider" })]), _c("k-dropdown-item", { on: { "click": _vm.action_edit } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "edit" } }), _c("span", [_vm._v(" Edit Item ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Edit custom fields for this menu item ")])]), _c("k-dropdown-item", { on: { "click": _vm.action_dialog } }, [_c("div", { staticClass: "k-menu-title k-menu-negative" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "trash" } }), _c("span", [_vm._v(" Remove Item ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Remove this item from the menu ")])])], 1)], 1)], 1)])]), _c("k-drawer", { ref: "drawer_edit", attrs: { "icon": "bolt", "title": "Edit " + _vm.item.title } }, [_c("k-form", { attrs: { "fields": Object.assign({}, this.fieldsets) }, model: { value: _vm.item.fields, callback: function($$v) {
+    ) } }) : _vm._e()], 1), _c("div", { staticClass: "k-content-meta", on: { "click": function($event) {
+      return _vm.$refs.edit.open();
+    } } }, [_c("div", { staticClass: "k-meta-title" }, [_vm._v(" " + _vm._s(_vm.item.title) + " "), _vm.item.children.length > 0 ? _c("span", { staticClass: "k-title-suffix" }, [_vm._v(" (" + _vm._s(_vm.item.children.length) + " " + _vm._s(_vm.item.children.length > 1 ? "subpages" : "subpage") + ") ")]) : _vm._e()])]), _c("div", { staticClass: "k-content-action" }, [_c("k-dropdown", { staticClass: "k-item-menu" }, [_c("k-button", { attrs: { "icon": "dots" }, on: { "click": function($event) {
+      return _vm.$refs.menu.open();
+    } } }), _c("k-dropdown-content", { ref: "menu", attrs: { "align": "right" } }, [_c("k-dropdown-item", { on: { "click": function($event) {
+      _vm.$refs.pages.open({
+        multiple: true,
+        search: _vm.pages.search,
+        endpoint: _vm.endpoints.field + "/pages",
+        selected: _vm.pages.selected.map(function(model) {
+          return model.id;
+        })
+      });
+    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "page" } }), _c("span", [_vm._v(" Add Pages ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add pages from the Kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", { on: { "click": function($event) {
+      _vm.$refs.files.open({
+        multiple: true,
+        search: _vm.files.search,
+        endpoint: _vm.endpoints.field + "/files",
+        selected: _vm.files.selected.map(function(model) {
+          return model.id;
+        })
+      });
+    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "file" } }), _c("span", [_vm._v(" Add Files ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add files from the Kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "bolt" } }), _c("span", [_vm._v(" Add Custom ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add a custom link not from the Kirby file system as a child to " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", [_c("div", { staticClass: "k-menu-divider" })]), _c("k-dropdown-item", { on: { "click": function($event) {
+      return _vm.$refs.edit.open();
+    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "edit" } }), _c("span", [_vm._v(" Edit ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Edit custom fields for " + _vm._s(_vm.item.title) + " ")])]), _c("k-dropdown-item", { on: { "click": function($event) {
+      return _vm.$refs.remove.open();
+    } } }, [_c("div", { staticClass: "k-menu-title k-menu-negative" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "trash" } }), _c("span", [_vm._v(" Remove ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Remove " + _vm._s(_vm.item.title) + " from the menu ")])])], 1)], 1)], 1)])]), _c("k-drawer", { ref: "edit", attrs: { "icon": "bolt", "title": "Edit " + _vm.item.title } }, [_c("k-form", { attrs: { "fields": Object.assign({}, this.fieldsets) }, model: { value: _vm.item.fields, callback: function($$v) {
       _vm.$set(_vm.item, "fields", $$v);
-    }, expression: "item.fields" } })], 1), _c("k-pages-dialog", { ref: "dialog_pages", on: { "submit": _vm.action_kirby } }), _c("k-files-dialog", { ref: "dialog_files", on: { "submit": _vm.action_kirby } }), _c("k-dialog", { ref: "dialog_remove", attrs: { "icon": "trash", "theme": "negative", "submitButton": "Remove" }, on: { "submit": _vm.action_remove } }, [_c("k-text", [_vm._v(" Do you really want to remove "), _c("strong", [_vm._v(_vm._s(_vm.item.title))]), _vm._v("? "), _vm.item.children.length ? _c("div", [_vm._v(" It has the following child menu items: "), _c("br"), _c("br"), _vm._l(_vm.action_flattened(_vm.item.children), function(children, index2) {
-      return _c("span", [_vm._v(" " + _vm._s(children.title)), _c("br")]);
-    })], 2) : _vm._e()])], 1)], 1);
+    }, expression: "item.fields" } })], 1), _c("k-dialog", { ref: "remove", attrs: { "icon": "trash", "theme": "negative", "submitButton": "Remove" }, on: { "submit": _vm.remove } }, [_c("k-text", [_vm._v(" Do you really want to remove "), _c("strong", [_vm._v(_vm._s(_vm.item.title))]), _vm._v("? ")])], 1), _c("k-pages-dialog", { ref: "pages", on: { "submit": _vm.add } }), _c("k-files-dialog", { ref: "files", on: { "submit": _vm.add } })], 1);
   };
-  var staticRenderFns$1 = [];
-  render$1._withStripped = true;
-  var tiller_vue_vue_type_style_index_0_scoped_true_lang = "";
+  var staticRenderFns$2 = [];
+  render$2._withStripped = true;
+  var fields_vue_vue_type_style_index_0_scoped_true_lang = "";
   function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
-    var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
+    var options2 = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
     if (render2) {
-      options.render = render2;
-      options.staticRenderFns = staticRenderFns2;
-      options._compiled = true;
+      options2.render = render2;
+      options2.staticRenderFns = staticRenderFns2;
+      options2._compiled = true;
     }
     if (functionalTemplate) {
-      options.functional = true;
+      options2.functional = true;
     }
     if (scopeId) {
-      options._scopeId = "data-v-" + scopeId;
+      options2._scopeId = "data-v-" + scopeId;
     }
     var hook;
     if (moduleIdentifier) {
@@ -1351,35 +1371,35 @@
           context._registeredComponents.add(moduleIdentifier);
         }
       };
-      options._ssrRegister = hook;
+      options2._ssrRegister = hook;
     } else if (injectStyles) {
       hook = shadowMode ? function() {
         injectStyles.call(
           this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
+          (options2.functional ? this.parent : this).$root.$options.shadowRoot
         );
       } : injectStyles;
     }
     if (hook) {
-      if (options.functional) {
-        options._injectStyles = hook;
-        var originalRender = options.render;
-        options.render = function renderWithStyleInjection(h, context) {
+      if (options2.functional) {
+        options2._injectStyles = hook;
+        var originalRender = options2.render;
+        options2.render = function renderWithStyleInjection(h, context) {
           hook.call(context);
           return originalRender(h, context);
         };
       } else {
-        var existing = options.beforeCreate;
-        options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+        var existing = options2.beforeCreate;
+        options2.beforeCreate = existing ? [].concat(existing, hook) : [hook];
       }
     }
     return {
       exports: scriptExports,
-      options
+      options: options2
     };
   }
-  const __vue2_script$1 = {
-    name: "tiller",
+  const __vue2_script$2 = {
+    name: "fields",
     props: {
       list: {
         type: Array,
@@ -1415,63 +1435,94 @@
       }
     },
     methods: {
-      action_edit() {
-        this.$refs.drawer_edit.open();
-      },
-      action_tiller() {
-        this.$refs.dialog_tiller.open();
-      },
-      action_dialog(data) {
-        this.$refs.dialog_remove.open();
-      },
-      action_close() {
-        this.$refs.dialog_remove.close();
-      },
-      action_pages(data) {
-        this.$refs.dialog_pages.open({
-          multiple: true,
-          search: this.pages.search,
-          endpoint: this.endpoints.field + "/pages",
-          selected: this.pages.selected.map((model) => model.id)
+      add(data) {
+        this.$emit("add", {
+          item: data,
+          children: this.item.children
         });
       },
-      action_files() {
-        this.$refs.dialog_files.open({
-          multiple: true,
-          search: this.files.search,
-          endpoint: this.endpoints.field + "/files",
-          selected: this.files.selected.map((model) => model.id)
+      remove() {
+        this.$emit("remove", {
+          item: this.item.id,
+          children: this.list
         });
+      }
+    }
+  };
+  const __cssModules$2 = {};
+  var __component__$2 = /* @__PURE__ */ normalizeComponent(
+    __vue2_script$2,
+    render$2,
+    staticRenderFns$2,
+    false,
+    __vue2_injectStyles$2,
+    "cecb776e",
+    null,
+    null
+  );
+  function __vue2_injectStyles$2(context) {
+    for (let o in __cssModules$2) {
+      this[o] = __cssModules$2[o];
+    }
+  }
+  __component__$2.options.__file = "src/components/fields.vue";
+  var fields = /* @__PURE__ */ function() {
+    return __component__$2.exports;
+  }();
+  var render$1 = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("div", [_c("k-dropdown", { staticClass: "k-tiller-menu" }, [_c("k-button", { attrs: { "icon": "dots" }, on: { "click": function($event) {
+      return _vm.$refs.menu.open();
+    } } }), _c("k-dropdown-content", { ref: "menu", attrs: { "align": "right" } }, [_c("k-dropdown-item", { on: { "click": function($event) {
+      _vm.$refs.pages.open({
+        multiple: true,
+        search: _vm.pages.search,
+        endpoint: _vm.endpoints.field + "/pages",
+        selected: _vm.pages.selected.map(function(model) {
+          return model.id;
+        })
+      });
+    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "page" } }), _c("span", [_vm._v(" Add Pages ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add pages from the Kirby file system ")])]), _c("k-dropdown-item", { on: { "click": function($event) {
+      _vm.$refs.files.open({
+        multiple: true,
+        search: _vm.files.search,
+        endpoint: _vm.endpoints.field + "/files",
+        selected: _vm.files.selected.map(function(model) {
+          return model.id;
+        })
+      });
+    } } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "file" } }), _c("span", [_vm._v(" Add Files ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add files from the Kirby file system ")])]), _c("k-dropdown-item", [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "bolt" } }), _c("span", [_vm._v(" Add Custom ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add a custom link not from the Kirby file system ")])])], 1)], 1), _c("k-pages-dialog", { ref: "pages", on: { "submit": _vm.add } }), _c("k-files-dialog", { ref: "files", on: { "submit": _vm.add } })], 1);
+  };
+  var staticRenderFns$1 = [];
+  render$1._withStripped = true;
+  const __vue2_script$1 = {
+    name: "option",
+    props: {
+      list: {
+        type: Array,
+        required: true
       },
-      action_kirby(data) {
-        data.map((item) => {
-          this.item.children.push({
-            id: this.$helper.string.random(16),
-            uuid: item.uuid,
-            link: item.link,
-            title: item.text,
-            url: item.url,
-            image: item.image,
-            fields: this.fieldsets,
-            children: []
-          });
+      pages: {
+        type: Object,
+        required: true
+      },
+      files: {
+        type: Object,
+        required: true
+      },
+      endpoints: {
+        type: Object,
+        required: true
+      }
+    },
+    methods: {
+      add(data) {
+        this.$emit("add", {
+          item: data,
+          children: this.list
         });
-      },
-      action_remove() {
-        this.$emit("action_remove", {
-          haystack: this.list,
-          needle: this.item.id
-        });
-        this.action_close();
-      },
-      action_flattened(data) {
-        let children = [];
-        return data.map((page) => {
-          if (page.children && page.children.length) {
-            children.push([...children, ...page.children]);
-          }
-          return page;
-        }).concat(children.length ? this.action_flattened(children) : children);
       }
     }
   };
@@ -1482,7 +1533,7 @@
     staticRenderFns$1,
     false,
     __vue2_injectStyles$1,
-    "6525219c",
+    null,
     null,
     null
   );
@@ -1491,8 +1542,8 @@
       this[o] = __cssModules$1[o];
     }
   }
-  __component__$1.options.__file = "src/components/tiller.vue";
-  var tiller = /* @__PURE__ */ function() {
+  __component__$1.options.__file = "src/components/options.vue";
+  var options = /* @__PURE__ */ function() {
     return __component__$1.exports;
   }();
   var render = function() {
@@ -1500,16 +1551,16 @@
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
     return _c("k-field", { staticClass: "k-form-field k-tiller-field", attrs: { "help": _vm.help, "label": _vm.label, "value": _vm.value, "disabled": _vm.disabled, "required": _vm.required }, scopedSlots: _vm._u([{ key: "options", fn: function() {
-      return [_c("k-dropdown", { staticClass: "k-tiller-menu" }, [_c("k-button", { attrs: { "icon": "dots" }, on: { "click": _vm.action_tiller } }), _c("k-dropdown-content", { ref: "dialog_tiller", attrs: { "align": "right" } }, [_c("k-dropdown-item", { on: { "click": _vm.action_pages } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "page" } }), _c("span", [_vm._v(" Add Pages ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add pages from the kirby file system ")])]), _c("k-dropdown-item", { on: { "click": _vm.action_files } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "file" } }), _c("span", [_vm._v(" Add Files ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add files from the kirby file system ")])]), _c("k-dropdown-item", { on: { "click": _vm.action_custom } }, [_c("div", { staticClass: "k-menu-title" }, [_c("k-icon", { staticClass: "k-menu-icon", attrs: { "type": "bolt" } }), _c("span", [_vm._v(" Add Custom ")])], 1), _c("p", { staticClass: "k-menu-text" }, [_vm._v(" Add a custom link not from the kirby file system ")])])], 1)], 1)];
-    }, proxy: true }]) }, [_c("vue-nestable", { attrs: { "keyProp": "id", "childrenProp": "children" }, scopedSlots: _vm._u([{ key: "default", fn: function(ref) {
+      return [_c("options", { attrs: { "list": _vm.list, "pages": _vm.pages, "files": _vm.files, "endpoints": _vm.endpoints }, on: { "add": _vm.add } })];
+    }, proxy: true }]) }, [_c("vue-nestable", { attrs: { "keyProp": "id", "childrenProp": "children" }, scopedSlots: _vm._u([{ key: "placeholder", fn: function() {
+      return [_c("empty")];
+    }, proxy: true }, { key: "default", fn: function(ref) {
       var item = ref.item;
       var index2 = ref.index;
-      return [_c("tiller", { key: index2, attrs: { "item": item, "list": _vm.list, "index": index2, "pages": _vm.pages, "files": _vm.files, "fields": _vm.fields, "fieldsets": _vm.fieldsets, "endpoints": _vm.endpoints }, on: { "action_remove": _vm.action_remove }, scopedSlots: _vm._u([{ key: "handle", fn: function() {
-        return [_c("vue-nestable-handle", { attrs: { "item": item } }, [_c("svg", { attrs: { "viewBox": "0 0 256 512", "xmlns": "http://www.w3.org/2000/svg" } }, [_c("path", { attrs: { "d": "M32 96C32 78.33 46.33 64 64 64C81.67 64 96 78.33 96 96C96 113.7 81.67 128 64 128C46.33 128 32 113.7 32 96zM32 256C32 238.3 46.33 224 64 224C81.67 224 96 238.3 96 256C96 273.7 81.67 288 64 288C46.33 288 32 273.7 32 256zM96 416C96 433.7 81.67 448 64 448C46.33 448 32 433.7 32 416C32 398.3 46.33 384 64 384C81.67 384 96 398.3 96 416zM160 96C160 78.33 174.3 64 192 64C209.7 64 224 78.33 224 96C224 113.7 209.7 128 192 128C174.3 128 160 113.7 160 96zM224 256C224 273.7 209.7 288 192 288C174.3 288 160 273.7 160 256C160 238.3 174.3 224 192 224C209.7 224 224 238.3 224 256zM160 416C160 398.3 174.3 384 192 384C209.7 384 224 398.3 224 416C224 433.7 209.7 448 192 448C174.3 448 160 433.7 160 416z" } })])])];
-      }, proxy: true }], null, true) })];
+      return [_c("fields", { key: index2, attrs: { "item": item, "list": _vm.list, "index": index2, "pages": _vm.pages, "files": _vm.files, "fields": _vm.fields, "fieldsets": _vm.fieldsets, "endpoints": _vm.endpoints }, on: { "add": _vm.add, "remove": _vm.remove } })];
     } }]), model: { value: _vm.list, callback: function($$v) {
       _vm.list = $$v;
-    }, expression: "list" } }, [_c("k-empty", { attrs: { "slot": "placeholder", "icon": "bolt" }, on: { "click": _vm.action_tiller }, slot: "placeholder" }, [_vm._v(" No menu items ")])], 1), _c("k-pages-dialog", { ref: "dialog_pages", on: { "submit": _vm.action_kirby } }), _c("k-files-dialog", { ref: "dialog_files", on: { "submit": _vm.action_kirby } }), _c("k-form-dialog", { ref: "dialog_custom", on: { "submit": _vm.action_kirby } })], 1);
+    }, expression: "list" } })], 1);
   };
   var staticRenderFns = [];
   render._withStripped = true;
@@ -1554,7 +1605,8 @@
       }
     },
     components: {
-      tiller
+      fields,
+      options
     },
     data() {
       return {
@@ -1563,7 +1615,7 @@
     },
     watch: {
       list: {
-        handler(newVal, oldVal) {
+        handler() {
           this.value = this.list;
           this.$emit("input", this.value);
         },
@@ -1571,35 +1623,9 @@
       }
     },
     methods: {
-      action_tiller() {
-        this.$refs.dialog_tiller.open({
-          state: true
-        });
-      },
-      action_custom() {
-        this.$refs.dialog_custom.open({
-          state: true
-        });
-      },
-      action_pages() {
-        this.$refs.dialog_pages.open({
-          multiple: true,
-          search: this.pages.search,
-          endpoint: this.endpoints.field + "/pages",
-          selected: this.pages.selected.map((model) => model.id)
-        });
-      },
-      action_files() {
-        this.$refs.dialog_files.open({
-          multiple: true,
-          search: this.files.search,
-          endpoint: this.endpoints.field + "/files",
-          selected: this.files.selected.map((model) => model.id)
-        });
-      },
-      action_kirby(data) {
-        data.map((item) => {
-          this.list.push({
+      add(data) {
+        data.item.map((item) => {
+          data.children.push({
             id: this.$helper.string.random(16),
             uuid: item.uuid,
             link: item.link,
@@ -1611,16 +1637,21 @@
           });
         });
       },
-      action_remove(data) {
-        return this.list = data.haystack.filter((item) => item.id !== data.needle).map((item) => {
+      remove(data) {
+        let test;
+        test = data.children.filter((item) => {
+          return item.id !== data.item;
+        });
+        test = test.map((item) => {
           if (item.children && item.children.length) {
-            item.children = this.action_remove({
-              haystack: item.children,
-              needle: data.needle
+            item.children = this.remove({
+              item: data.item,
+              children: item.children
             });
           }
           return item;
         });
+        return test;
       }
     }
   };
